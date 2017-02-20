@@ -1,2 +1,91 @@
 # javascript
 All the details about writing javascript @ Aldo
+
+# Subjects
+- import
+- require
+- export
+- default export
+- if, else
+- tenary expression
+- dangling comma
+- semi-column
+- Pull Request process
+- pull request approvers
+- curly braces
+- who can merge
+- documenting components owners, etc
+- function signature documentation (Hindley-Milner)
+- definition of done
+- function purity
+- TDD
+- unit tests
+- programming against an interface
+- user test automation
+- react components design and architecture
+- monads
+- composition
+- constants
+- DRY
+- reusability
+- copy code first
+- the code will fork
+- coupling of modules
+- module pattern
+- imputity
+- shared state mutation
+- local state mutation
+- linter
+- object.assign 
+- utils
+- helpers
+- third-parties
+- continuous integration
+- devops
+- acceptance tests
+- imperative functions
+- closer to usage
+- business concerns separations
+- higher order functions
+- first class functions
+- first class object
+- learning resources
+- react specific syntax
+- let, const, var
+- null undefined
+- pattern matching
+- tail call recurtions
+- for, loops, while, foreach
+- recurtions
+- map, reduce
+- Types: String, Number, etc
+- Generators
+- Types: Maybe, Identity, etc.
+- closures
+- curry and partial application
+- one input, one output
+- boy scout principle
+- design patterns
+- regex
+- new keyword
+- test tools
+- mocking
+- this
+- unary operator
+- function keyword
+- arrow functions
+- return keyword
+- control flow
+- single return by function
+- ramda, underscore, jQuery, lodash
+- configuration
+- secret variables
+- env variables
+- assignations
+- await async
+- tupple
+- http
+- promises
+- ||, &&, ===, !==, etc
+- dependecy injections
+- SOLID
