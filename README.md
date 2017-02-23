@@ -89,3 +89,4 @@ All the details about writing javascript @ Aldo
 - ||, &&, ===, !==, etc
 - dependecy injections
 - SOLID
+- todo, task in code vs task software
