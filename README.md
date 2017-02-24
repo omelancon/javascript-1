@@ -1,10 +1,35 @@
 # javascript
 All the details about writing javascript @ Aldo
 
-# Subjects
-- import
-- require
+# import / require / export
+## Motivation
+Require is a library while import for System.import in the browser and import in nodejs are native implmentations.
+
+## require
+Don't use it, see [#Import]
+
+## import
+Imports should be done with the import statement and require should be avoided.
+```
+import potato from 'potato'
+import {c arrot } from 'vegetables'
+```
+In the case of code that is ran without transpilation `require` can be used exceptionally, but this practice is discouraged because you can always used `node-babel`.
+
+Imports should favor the absolute style
+DO:
+```
+import potato from 'vegetables/potato'
+```
+DO NOT:
+```
+import potato from '../vegetables/potato'
+```
+note that when you are outside of webpack this does not work, so it is best practice to use webpack. It it is impossible you could use relative paths.
+
 - export
+
+# Subjects
 - default export
 - if, else
 - tenary expression
