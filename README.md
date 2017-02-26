@@ -36,7 +36,7 @@ There are a lot of functional programming resources that can help you understand
 ## [Professor Frisby Introduces Composable Functional JavaScript](https://egghead.io/lessons/javascript-linear-data-flow-with-container-style-types-box)
 `Professor Frisby teaches composable programing in this serie, it is the softest introduction for Monads in javascript there is.`
 
-# Functional Programming the good, the bad, and what you can do.
+# Functional Programming the good, the bad, and you know what.
 ## control flow
 You should use monads for control flow
 ``` javascript
