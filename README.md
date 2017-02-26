@@ -166,17 +166,20 @@ const getBody = document =>
 As a general roule you should avoid assignations at all costs, they alter state and increase the risk of sharing state in code and changin fucntions parameters.
 ``` javascript
 // bad
-const foo = bar => bar = bar || 0
+const foo = state => {
+  state.count = state.count + 1
+  return state
+}
 
 // good
-const foo = bar => bar ? bar : 0
+const foo = state => object.assign({}, state, { count: state.count + 1 })
+
+// best
+const foo = state => ({ ...state, count: state.count + 1 })
 ```
 *could use better examples*
 - shared state mutation : disallowed
 - local state mutation : disallowed
-
-
-
 
 - first class functions : is the standard tool for composition
 - higher order functions: : is the standard tool for composition
@@ -192,30 +195,175 @@ const foo = bar => bar ? bar : 0
 
 
 # Code Organisation
-- utils
-- helpers
+
+## Utils module and utils folders
+Do not use utils folder there you put non business logic code. This couples the codebase uselessly and increases it's complexity. Rather promote utils to npm repository. if the usage is common ennough to be on npm it could already be there or you will serve the nodejs open source community.
+
+## Helpers and utils with business logic
+Do not use the helper naming and concept. A function has only one purpose for changeing and it's name should represent that, moreover it should be private to it's module. Although it may cause code duplication it will decrease complexity by decoupling modules.
+
 - copy code first
 - the code will fork
 - coupling of modules
 - module pattern
-- business concerns separations
+
+## Business moduels
+Avoid at all cost technical modules. They should be centic to a business concern and separated as such.
+``` javascript
+// bad
+_ src
+├── components
+|   └── apple.js
+|   └── microsoft.js
+├── containers
+|   └── apple.js
+|   └── microsoft.js
+├── reducers
+|   └── apple.js
+|   └── microsoft.js
+├── sagas
+|   └── apple.js
+|   └── microsoft.js
+└── index.html
+
+// good
+_ src
+├── apple
+|   └── apple.component.js
+|   └── apple.container.js
+|   └── apple.router.js
+|   └── apple.saga.js
+├── microsoft
+|   └── microsoft.component.js
+|   └── microsoft.container.js
+|   └── microsoft.router.js
+|   └── microsoft.saga.js
+└── index.html
+```
 
 # style
-- if, else
-- tenary expression
-- dangling comma
-- semi-column
-- curly braces
+## Avoid if expressions
+Do not use if expression, they influence imperative programming.
+``` javascript
+// bad
+(foo) => {
+  if(foo){
+    return bar
+  }
+  return baz
+}
+
+// good
+(foo) => foo ? bar : baz
+```
+
+## Prefer tenary expression over || and &&
+Prefer the usage of tenary expression where you are explicit of the else condition.
+``` javascript
+// ok
+(foo) => foo && bar || 0
+
+// good
+(foo) => foo ? bar : baz
+(foo) => foo ? baz : 0
+```
+
+## Use tenary expression to determine data/fucntions rather than execution
+``` javascript
+// bad
+const foo = data => make => make2 => contition => contition ? make(data) : make2(data)
+
+// good
+const foo = make => make2 => contition => contition ? make : make2
+foo(make)(make2)(contdition)(data)
+```
+
+## Don't use semi-column
+``` javascript
+// bad
+const add = a => b => a + b;
+
+// good
+const add = a => b => a + b
+```
+
+## Use dangling comma
+``` javascript
+// bad
+const foo = {
+  bar,
+  baz
+}
+
+// good
+const foo = {
+  bar,
+  baz,
+}
+```
+
+## Avoid curly braces for code blocks
+Clutter, they are just clutter. You better use sequences.
+``` javascript
+// bad
+const incremnt = a => {
+  return a + 1
+}
+
+const make = flower => color => {
+  flower(color)
+  return color
+}
+
+// good
+const incremnt = a => a + 1
+
+const make = flower => color => (flower(color), color)
+```
+
+## Keep variables close to usage
+Keep variables closer to usage, inside function bloc if possible and just prefer using string literals.
+``` javascript
+// bad
+const INC = 2
+...
+const increment = a => a + INC
+
+// bad
+const indcremnt = a => {
+  const INC = 2
+  return a + INC
+}
+
+// best
+const indcremntBy2 = a =>  a + 2
+```
+
+## Regex
+Because a regex is a business case yo should use it a stirng literal inside a function that does just that.
+avoid the `new Regex` construct.
+``` javascript
+// bad
+const TRIM_END = /[ ]+$/
+...
+const trim = str => str.trim(TRIM_END)
+
+// bad
+const trim = str => str.trim(new Regex(/[ ]+$/)))
+
+// good
+const trim = str => str.trim(/[ ]+$/)
+```
+
 - function signature documentation (Hindley-Milner)
 - constants
 - object.assign
 - linter
-- closer to usage
+
 - let, const, var
 - pattern matching
 - for, loops, while, foreach
 - recurtions
-- regex
 - new keyword
 - Generators : syntax
 - this : no, don't use it
@@ -253,7 +401,6 @@ It's astrange thing to write about TDD so late in a guide, but it is still most 
 - react components design and architecture
 - css
 - react specific syntax
-
 
 # externals
 - third-parties : must pass quorum approval process
