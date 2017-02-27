@@ -56,7 +56,7 @@ const makeFoo =
 *more examples needed*
 
 ## Function Purity -- Is Paramount
-### Impure dependecies must be composed.
+### Impure dependencies must be composed.
 ``` javascript
 export default const readFileBody = filePath => {
   const fileContents = readFileSync(url)
@@ -72,7 +72,7 @@ export default const readFileBody = compose(getBody, JSON.parse, readFileSync)
 ### Do not share state
 ``` javascript
 // bad
-const state = {};
+const state = {}
 
 const inc = () => state.count++
 
@@ -114,7 +114,7 @@ const add = ([a, b]) => a + b
 const add = a => b => a + b
 ```
 
-## Split Code Into Composable Function
+## Split Code Into Composable Functions
 ``` javascript
 // bad
 const headerStringToObject = headerString => {
@@ -134,7 +134,7 @@ const headerStringToObject = compose(combine, prepare)
 ```
 
 ## Do Not Program Imperative Functions -- Like Ever!
-Because you should tell a story by declaring what to do and not how you should avoid imperative functions that tend to tell the computer how to do the thing rather than declare what to do.
+Because you should tell a story by declaring what to do and not how, you should avoid imperative functions that tend to tell the computer how to do the thing rather than declare what to do.
 ``` javascript
 // bad
 function fromPairs(pairs) {
@@ -160,18 +160,18 @@ const getBody = document => document && document.body
 
 // good, a monadic api is more reliable and differs the decisions to the caller
 const getBody = document =>
-  Either.formnNllable(document)
+  Either.fromNullable(document)
   .map(d => d.body)
 
 // good
 const getBody = document =>
-  Either.formnNllable(document)
+  Either.fromNullable(document)
   .map(d => d.body)
   .fork(() => 'can\'t get body of null', b => b)
 ```
 
 ## Assignations & State Modification
-As a general roule you should avoid assignations at all costs, they alter state and increase the risk of sharing state in code and changin fucntions parameters.
+As a general roule you should avoid assignations at all costs, they alter state and increase the risk of sharing state in code and changing functions parameters.
 ``` javascript
 // bad
 const foo = state => {
@@ -202,10 +202,10 @@ const foo = state => ({ ...state, count: state.count + 1 })
 # Code Organisation
 
 ## Utils module and utils folders
-Do not use utils folder there you put non business logic code. This couples the codebase uselessly and increases it's complexity. Rather promote utils to npm repository. if the usage is common ennough to be on npm it could already be there or you will serve the nodejs open source community.
+Do not use utils folder there you put non business logic code. This couples the codebase uselessly and increases its own complexity. Rather promote utils to a npm repository. If the usage is common enough to be on npm it could already be there or you will serve the nodejs open source community.
 
 ## Helpers and utils with business logic
-Do not use the helper naming and concept. A function has only one purpose for changeing and it's name should represent that, moreover it should be private to it's module. Although it may cause code duplication it will decrease complexity by decoupling modules.
+Do not use the helper naming and concept. A function has only one purpose and its name should represent that, moreover it should be private to its module. Although it may cause code duplication, it will decrease complexity by decoupling modules.
 
 ## copy code first
 ## the code will fork
@@ -245,7 +245,7 @@ _ src
 ```
 
 # Coding Style
-In this guide we propose a coding style that promotes funtional programming, it's funsamental that this style be opened to personal tastes and closed to divergence ## there should be only one way to solve a problem.
+In this guide we propose a coding style that promotes functional programming, it's fundamental that this style be opened to personal tastes and closed to divergence ## there should be only one way to solve a problem.
 
 ## Avoid if expressions
 Do not use if expression, they influence imperative programming.
@@ -269,11 +269,11 @@ Prefer the usage of ternary expression where you are explicit of the else condit
 (foo) => foo && bar || 0
 
 // good
-(foo) => foo ? bar : baz
+(foo) => foo ? bar : { baz: true }
 (foo) => foo ? baz : 0
 ```
 
-## Use Ternary Expression to Determine data/fucntions Rather Than Execution
+## Use Ternary Expression to Determine data/functions Rather Than Execution
 ``` javascript
 // bad
 const foo = data => make => make2 => contition => contition ? make(data) : make2(data)
@@ -283,7 +283,7 @@ const foo = make => make2 => contition => contition ? make : make2
 foo(make)(make2)(contdition)(data)
 ```
 
-## Don't Use Semi-Column
+## Don't Use Semicolons
 It just won't break. [It's][1] [fine.][2] [Really!][3]
 
 [1]: http://blog.izs.me/post/2353458699/an-open-letter-to-javascript-leaders-regarding
@@ -313,7 +313,7 @@ const foo = {
 ```
 
 ## Avoid Curly Braces for Code Blocks
-Clutter, they are just clutter. You better use sequences.
+Clutter, they are just clutter. You better use sequences. If you need curly braces, your function is probably too big, has multiple concerns or is not built properly.
 ``` javascript
 // bad
 const incremnt = a => {
@@ -334,7 +334,7 @@ const make = flower => color => (flower(color), color)
 ## Keep Variables Close to Usage
 Keep variables closer to usage, inside function bloc if possible and just prefer using string literals.
 ``` javascript
-// bad
+// worst
 const INC = 2
 ...
 const increment = a => a + INC
@@ -350,8 +350,8 @@ const indcremntBy2 = a =>  a + 2
 ```
 
 ## Regex
-Because a regex is a business case yo should use it a stirng literal inside a function that does just that.
-avoid the `new Regex` construct.
+Because a regex is a business case, you should use it as a string literal inside a function that does just that.
+Avoid the `new Regex` construct.
 ``` javascript
 // bad
 const TRIM_END = /[ ]+$/
@@ -366,21 +366,21 @@ const trim = str => str.trim(/[ ]+$/)
 ```
 
 ## function signature documentation (Hindley-Milner)
-You shoud document all functions with Hindley-Milner annotation, it is the prevalent type signature documentation in functtional languages (haskel, elm, etc.) and it just makes allot of sense to use it in functional javascript.
+You shoud document all functions with Hindley-Milner annotation, it is the prevalent type signature documentation in functional languages (haskel, elm, etc.) and it just makes a lot of sense to use it in functional javascript.
 ```
 // functionName :: type -> type -> type
 ```
 
 ## constants
-You should just use magic number and string literals. There is no point in confusing the reader with data hidden beihnd variables names, that are likely inapropreate.
+You should just use magic number and string literals. There is no point in confusing the reader with data hidden behind variables names, that are likely inappropriate.
 ``` javascript
 // bad
 const USER_DEFAULT_COUNT = 5
 ...
-const reucer = (state = USER_DEFAULT_COUNT) => ... // you just can't know that the default is 5, it makes no sense
+const reducer = (state = USER_DEFAULT_COUNT) => ... // you just can't know that the default is 5, it makes no sense
 
 // good
-const reucer = (state = 5) => ...
+const reducer = (state = 5) => ...
 ```
 
 ## Object Assign
@@ -405,9 +405,9 @@ const state => ({ ...state, id : 1 }) // es6 syntax
 There can be just one: `const`. you should never use `var`, and avoid at all cost `let`.
 
 ## Pattern Matching
-Although mattern matching or deconstructuring is a cool tool in es6, it binds the function to the json structure.
+Although pattern matching or deconstructuring is a cool tool in es6, it binds the function to the json structure.
 ``` javascript
-//bad
+// bad
 const parse = ({ a : { b } }) =>
   Id(b).map(parseInt).fold(a => a)
 
@@ -477,7 +477,7 @@ Never use the new keyword.
 
 
 # Test & TDD
-It's astrange thing to write about TDD so late in a guide, but it is still most important.
+It's a strange thing to write about TDD so late in a guide, but it is still most important.
 
 ## TDD: is the only way to do it
 ## unit tests: at the module level
