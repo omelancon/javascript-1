@@ -1,3 +1,5 @@
+ >*IT'S A DRAFT!*
+
 # Aldo Javascript Functional Programming Guide
 All the details about writing javascript @ Aldo
 
