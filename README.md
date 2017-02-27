@@ -136,8 +136,7 @@ function fromPairs(pairs) {
 }
 
 // good
-const fromPair = ([key, value]) => ({ [key]: value })
-const fromPairs = map(fromPair)
+const fromPairs = compose(combine, map(([key, value]) => ({ [key]: value })))
 ```
 
 ## Do Not Use `null` & `undefined` for Control Flow
