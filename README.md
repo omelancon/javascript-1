@@ -16,14 +16,12 @@ You may use it, but at your own risks. We open source this guide in hopes it hea
 # Values
 These are the values we uphold with this guide, and hope that this will help at releasing better software more regularly and steadily.
 
-- Functional style prevails
-- Imperative is not permited
-- Pure functional programming
-- Use Monads for flow control
-- Everything must be composable
-- Separation of concerns based on business requirements
-- Modular architecture comes first
+- Pure functional & Functional paradigm prevails
 - Impurity must be rejected
+- Everything must be composable
+- Use Monads for flow control
+- Modular architecture comes first
+- Separation of concerns based on business requirements
 - Small is better
 - Less is more
 
@@ -56,7 +54,7 @@ const makeFoo =
 ```
 *more examples meeded*
 
-## Function Purity - Is Paramount
+## Function Purity -- Is Paramount
 You should compose impurity instean of closing onto them.
 ``` javascript
 import { readFileSync } form 'fs'
@@ -97,7 +95,7 @@ const add (a, b) => a + b
 const foo (a, b, c, d, e) => (/* ... */)
 const foo = a => b => c => d => e => (/* ... */)
 
-// good
+// ok
 const add ({a, b}) => a + b
 const add ([a, b]) => a + b
 
@@ -124,7 +122,7 @@ const prepare = compose(fromPairs, map(split('=')), map(trim), split(','), toStr
 const headerStringToObject = compose(combine, prepare)
 ```
 
-## Do Not Program Imperative Functions - Like Ever!
+## Do Not Program Imperative Functions -- Like Ever!
 Because you should tell a story by declaring what to do and not how you should avoid imperative functions that tend to tell the computer how to do the thing rather than declare what to do.
 ``` javascript
 // bad
@@ -178,20 +176,20 @@ const foo = state => object.assign({}, state, { count: state.count + 1 })
 const foo = state => ({ ...state, count: state.count + 1 })
 ```
 
-- shared state mutation : disallowed
-- local state mutation : disallowed
+## shared state mutation : disallowed
+## local state mutation : disallowed
 
-- first class functions : is the standard tool for composition
-- higher order functions: : is the standard tool for composition
-- curry and partial application : is the standard tool for composition
+## first class functions : is the standard tool for composition
+## higher order functions: : is the standard tool for composition
+## curry and partial application : is the standard tool for composition
 
 
-- impurity : impure function can only be composed, never injected or closed uppon. Thye must be tagged with `//IMPURE`
-- tail call recurtions : you shoul use it as a default tool for recursion
-- map, reduce : for standard data manipulation
-- Types: String, Number, etc : know your types
-- Generators : how to use them
-- Types: Maybe, Identity, etc.
+## impurity : impure function can only be composed, never injected or closed uppon. Thye must be tagged with `//IMPURE`
+## tail call recurtions : you shoul use it as a default tool for recursion
+## map, reduce : for standard data manipulation
+## Types: String, Number, etc : know your types
+## Generators : how to use them
+## Types: Maybe, Identity, etc.
 
 
 # Code Organisation
@@ -202,12 +200,12 @@ Do not use utils folder there you put non business logic code. This couples the 
 ## Helpers and utils with business logic
 Do not use the helper naming and concept. A function has only one purpose for changeing and it's name should represent that, moreover it should be private to it's module. Although it may cause code duplication it will decrease complexity by decoupling modules.
 
-- copy code first
-- the code will fork
-- coupling of modules
-- module pattern
+## copy code first
+## the code will fork
+## coupling of modules
+## module pattern
 
-## Business Centric Modules
+## Separation of concerns based on business requirements
 Avoid at all cost technical modules. They should be centic to a business concern and separated as such.
 ``` javascript
 // bad
@@ -242,14 +240,14 @@ _ src
 ```
 
 # Coding Style
-In this guide we propose a coding style that promotes funtional programming, it's funsamental that this style be opened to personal tastes and closed to divergence - there should be only one way to solve a problem.
+In this guide we propose a coding style that promotes funtional programming, it's funsamental that this style be opened to personal tastes and closed to divergence ## there should be only one way to solve a problem.
 
 ## Avoid if expressions
 Do not use if expression, they influence imperative programming.
 ``` javascript
 // bad
 (foo) => {
-  if(foo){
+  if (foo) {
     return bar
   }
   return baz
@@ -357,79 +355,97 @@ const trim = str => str.trim(new Regex(/[ ]+$/)))
 const trim = str => str.trim(/[ ]+$/)
 ```
 
-- function signature documentation (Hindley-Milner)
-- constants
-- object.assign
-- linter
+## function signature documentation (Hindley-Milner)
+## constants
+## object.assign
+## linter
 
-- let, const, var
-- pattern matching
-- for, loops, while, foreach
-- recurtions
-- new keyword
-- Generators : syntax
-- this : no, don't use it
-- unary operator : over tenary operations
-- function keyword : you should not be using it
-- arrow functions : is the default, noop, identity, always
-- return keyword : disallowed
-- await async : use a future
-- tupple : least as possible
-- promises : use a future
-- ||, &&, ===, !==, etc
-- dependecy injections
+## let, const, var
+There can be just one: `const`. you should never use `var`, and avoid at all cost `let`.
+
+## Pattern Matching
+Although mattern matching or deconstructuring is a cool tool in es6, it binds the function to the json structure.
+``` javascript
+//bad
+const parse = ({ a : { b } }) =>
+  Id(b).map(parseInt).fold(a => a)
+
+// good
+const parse = data => path =>
+  Id(data).map(path).map(parseInt).fold(a => a)
+```
+
+## for, loops, while, foreach
+Use recursion.
+
+
+## `new` keyword
+Never use the new keywork
+
+## recurtions
+
+## Generators : syntax
+## this : no, don't use it
+## unary operator : over tenary operations
+## function keyword : you should not be using it
+## arrow functions : is the default, noop, identity, always
+## return keyword : disallowed
+## await async : use a future
+## tupple : least as possible
+## promises : use a future
+## ||, &&, ===, !==, etc
+## dependecy injections
 
 # Test & TDD
 It's astrange thing to write about TDD so late in a guide, but it is still most important.
 
-- TDD: is the only way to do it
-- unit tests: at the module level
-- programming against an interface : first do it, then code impl
-- user test automation: for each accepatance test
-- test tools : don't, on ROBOT? investigation needed
-- mocking : don't
+## TDD: is the only way to do it
+## unit tests: at the module level
+## programming against an interface : first do it, then code impl
+## user test automation: for each accepatance test
+## test tools : don't, on ROBOT? investigation needed
+## mocking : don't
 
 # process
-- Pull Request process
-- pull request approvers
-- who can merge
-- documenting components owners, etc
-- boy scout principle
-- todo, task in code vs task software
-- definition of done
-
+## Pull Request process
+## pull request approvers
+## who can merge
+## documenting components owners, etc
+## boy scout principle
+## todo, task in code vs task software
+## definition of done
 
 # React
-- react components design and architecture
-- css
-- react specific syntax
+## react components design and architecture
+## css
+## react specific syntax
 
 # externals
-- third-parties : must pass quorum approval process
-- ramda, underscore, jQuery, lodash : yeah you need to stop using those
+## third-parties : must pass quorum approval process
+## ramda, underscore, jQuery, lodash : yeah you need to stop using those
 
 # devops
-- continuous integration
-- devops
-- acceptance tests
+## continuous integration
+## devops
+## acceptance tests
 
 # OOP principles
-- SOLID
-- DRY
-- reusability
-- design patterns
+## SOLID
+## DRY
+## reusability
+## design patterns
 
 # Other Topics
-- configuration
-- secret variables
-- env variables
-- http
+## configuration
+## secret variables
+## env variables
+## http
 
 # Topics that are covered by airbnb
-- module export / import / require
+## module export / import / require
 
 # Contribution and changes to the guide
-To make a change to this guide you must create a pull request with your changes. The change must be debated in the pull request by anyone, but must uphold the [#Values] and must have the unanimous yes of the guide quorum.
+To make a change to this guide you must create a pull request with your changes. The change can be debated in the pull request by anyone, but must uphold the [Values](#Values) and must have the unanimous yes of the guide quorum.
 
 # Aldo Javascript Functional Programming Guide Quorum
 - Simon Deshaies
