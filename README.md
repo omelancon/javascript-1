@@ -180,14 +180,10 @@ const foo = state => ({ ...state, count: state.count + 1 })
 
 ## shared state mutation : disallowed
 ## local state mutation : disallowed
-
 ## first class functions : is the standard tool for composition
 ## higher order functions: : is the standard tool for composition
 ## curry and partial application : is the standard tool for composition
-
-
 ## impurity : impure function can only be composed, never injected or closed uppon. Thye must be tagged with `//IMPURE`
-## tail call recurtions : you shoul use it as a default tool for recursion
 ## map, reduce : for standard data manipulation
 ## Types: String, Number, etc : know your types
 ## Generators : how to use them
@@ -259,8 +255,8 @@ Do not use if expression, they influence imperative programming.
 (foo) => foo ? bar : baz
 ```
 
-## Prefer Tenary Expression Over || and &&
-Prefer the usage of tenary expression where you are explicit of the else condition.
+## Prefer Ternary Expression Over || and &&
+Prefer the usage of ternary expression where you are explicit of the else condition.
 ``` javascript
 // ok
 (foo) => foo && bar || 0
@@ -270,7 +266,7 @@ Prefer the usage of tenary expression where you are explicit of the else conditi
 (foo) => foo ? baz : 0
 ```
 
-## Use Tenary Expression to Determine data/fucntions Rather Than Execution
+## Use Ternary Expression to Determine data/fucntions Rather Than Execution
 ``` javascript
 // bad
 const foo = data => make => make2 => contition => contition ? make(data) : make2(data)
@@ -397,7 +393,6 @@ const state => assign(state, { id : 1 }) // oncha api
 const state => ({ ...state, id : 1 }) // es6 syntax
 ```
 
-## linter
 
 ## let, const, var
 There can be just one: `const`. you should never use `var`, and avoid at all cost `let`.
@@ -418,17 +413,51 @@ const parse = path => compose(parseInt, path)
 ```
 
 ## for, loops, while, foreach
-Use recursion.
+Use [recursion](#Recursion & Tail Call).
 
+
+## Recursion & Tail Call
+To make a tail call resursion you need to place the function call at the end of your function and have it return the value. [see tail-call-optimization](http://www.2ality.com/2015/06/tail-call-optimization.html)
+``` javascript
+// recur :: Number -> Number -> Number
+const recur = n => acc =>  n == 0 ? acc : recur(n-1)(n*acc)
+
+// recur :: Number -> Number
+const factorial = (n) => recur(n)(1)
+```
 
 ## `new` keyword
 Never use the new keyword.
 
-## recurtions
+## linter
+*eslint*
+``` javascript
+{
+  "extends": "airbnb",
+  "rules": {
+    "no-shadow": 0,
+    "no-use-before-define": 0,
+    "semi": [
+      "error",
+      "never"
+    ],
+    "no-sequences": 0,
+    "no-confusing-arrow": 0,
+    "func-call-spacing": 0,
+    "import/no-unresolved": 0,
+    "import/no-extraneous-dependencies": 0,
+    "import/extensions": 0
+  },
+  "globals": {
+    "it": true,
+    "describe": true
+  }
+}
+```
 
 ## Generators : syntax
 ## this : no, don't use it
-## unary operator : over tenary operations
+## unary operator : over ternary operations
 ## function keyword : you should not be using it
 ## arrow functions : is the default, noop, identity, always
 ## return keyword : disallowed
@@ -437,6 +466,8 @@ Never use the new keyword.
 ## promises : use a future
 ## ||, &&, ===, !==, etc
 ## dependecy injections
+## temp variables
+
 
 # Test & TDD
 It's astrange thing to write about TDD so late in a guide, but it is still most important.
