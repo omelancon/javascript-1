@@ -385,7 +385,7 @@ Use recursion.
 
 
 ## `new` keyword
-Never use the new keywork
+Never use the new keyword
 
 ## recurtions
 
