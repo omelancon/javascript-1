@@ -432,6 +432,6 @@ It's astrange thing to write about TDD so late in a guide, but it is still most 
 To make a change to this guide you must create a pull request with your changes. The change must be debated in the pull request by anyone, but must uphold the [#Values] and must have the unanimous yes of the guide quorum.
 
 # Aldo Javascript Functional Programming Guide Quorum
-Simon Deshaies
-Jean-Francois Dube
-Ysael Pepin
+- Simon Deshaies
+- Jean-Francois Dube
+- Ysael Pepin
