@@ -422,7 +422,7 @@ Use recursion.
 
 
 ## `new` keyword
-Never use the new keyword
+Never use the new keyword.
 
 ## recurtions
 
