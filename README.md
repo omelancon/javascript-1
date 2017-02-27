@@ -99,7 +99,7 @@ const add ({a, b}) => a + b
 const add ([a, b]) => a + b
 
 // best
-const add a => b => a + b
+const add = a => b => a + b
 ```
 
 ## Split Code Into Composable Function
