@@ -1,4 +1,4 @@
- >*IT'S A DRAFT!*
+!(https://cdn.meme.am/cache/instances/folder781/66247781.jpg)
 
 # Aldo Javascript Functional Programming Guide
 All the details about writing javascript @ Aldo
@@ -54,10 +54,10 @@ const makeFoo =
     Either.fromNullable(foo)
       .fold(make)
 ```
-*more examples meeded*
+*more examples needed*
 
 ## Function Purity -- Is Paramount
-You should compose impurity instean of closing onto them.
+### Impure dependecies must be composed.
 ``` javascript
 export default const readFileBody = filePath => {
   const fileContents = readFileSync(url)
@@ -69,6 +69,19 @@ export default const readFileBody = filePath => {
 const getBody = document => document.body
 export default const readFileBody = compose(getBody, JSON.parse, readFileSync)
 ```
+
+### Do not share state
+``` javascript
+// bad
+const state = {};
+
+const inc = () => state.count++
+
+// good
+const inc = (state = { count: 0 }) => ({ count : state.count + 1 })
+```
+
+
 ## Single Returns
 ``` javascript
 // bad
@@ -175,6 +188,7 @@ const foo = state => ({ ...state, count: state.count + 1 })
 ```
 
 ## shared state mutation : disallowed
+
 ## local state mutation : disallowed
 ## first class functions : is the standard tool for composition
 ## higher order functions: : is the standard tool for composition
