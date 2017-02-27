@@ -43,9 +43,8 @@ You should use monads for control flow
 // bad
 const makeFoo = foo => {
   if (foo) {
-  throw new Error('foo cannot be null')
+    return make(foo)
   }
-  return make(foo)
 }
 
 // good
@@ -427,7 +426,7 @@ Use [recursion](#Recursion & Tail Call).
 
 
 ## Recursion & Tail Call
-To make a tail call resursion you need to place the function call at the end of your function and have it return the value. [see tail-call-optimization](http://www.2ality.com/2015/06/tail-call-optimization.html)
+To make a tail call resursion you need to place the function call at the end of your function and have it return the value. [see es6-recursion-tail-recursion](http://www.door3.com/insights/es6-recursion-tail-recursion)
 ``` javascript
 // recur :: Number -> Number -> Number
 const recur = n => acc =>  n == 0 ? acc : recur(n-1)(n * acc)
