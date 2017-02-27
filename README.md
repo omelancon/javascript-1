@@ -363,8 +363,40 @@ const trim = str => str.trim(/[ ]+$/)
 ```
 
 ## function signature documentation (Hindley-Milner)
+You shoud document all functions with Hindley-Milner annotation, it is the prevalent type signature documentation in functtional languages (haskel, elm, etc.) and it just makes allot of sense to use it in functional javascript.
+```
+// functionName :: type -> type -> type
+```
+
 ## constants
-## object.assign
+You should just use magic number and string literals. There is no point in confusing the reader with data hidden beihnd variables names, that are likely inapropreate.
+``` javascript
+// bad
+const USER_DEFAULT_COUNT = 5
+...
+const reucer = (state = USER_DEFAULT_COUNT) => ... // you just can't know that the default is 5, it makes no sense
+
+// good
+const reucer = (state = 5) => ...
+```
+
+## Object Assign
+Use `Object.assign` to avoid mutating state.
+``` javascript
+// bad
+const state => {
+  state.id = 1
+  return state
+}
+
+// good
+const state => Object.assign({}, state, { id : 1 }) // native js
+
+const state => assign(state, { id : 1 }) // oncha api
+
+const state => ({ ...state, id : 1 }) // es6 syntax
+```
+
 ## linter
 
 ## let, const, var
@@ -378,8 +410,11 @@ const parse = ({ a : { b } }) =>
   Id(b).map(parseInt).fold(a => a)
 
 // good
-const parse = data => path =>
+const parse = path => data =>
   Id(data).map(path).map(parseInt).fold(a => a)
+
+// best
+const parse = path => compose(parseInt, path)
 ```
 
 ## for, loops, while, foreach
