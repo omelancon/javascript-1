@@ -59,7 +59,6 @@ const makeFoo =
 ## Function Purity -- Is Paramount
 You should compose impurity instean of closing onto them.
 ``` javascript
-import { readFileSync } form 'fs'
 export default const readFileBody = filePath => {
   const fileContents = readFileSync(url)
   const json = JSON.parse(fileContents)
@@ -67,8 +66,6 @@ export default const readFileBody = filePath => {
 }
 
 // good
-import { readFileSync } form 'fs'
-import compose from 'oncha/compose'
 const getBody = document => document.body
 export default const readFileBody = compose(getBody, JSON.parse, readFileSync)
 ```
