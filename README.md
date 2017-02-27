@@ -416,7 +416,7 @@ Use [recursion](#Recursion & Tail Call).
 To make a tail call resursion you need to place the function call at the end of your function and have it return the value. [see tail-call-optimization](http://www.2ality.com/2015/06/tail-call-optimization.html)
 ``` javascript
 // recur :: Number -> Number -> Number
-const recur = n => acc =>  n == 0 ? acc : recur(n-1)(n*acc)
+const recur = n => acc =>  n == 0 ? acc : recur(n-1)(n * acc)
 
 // recur :: Number -> Number
 const factorial = (n) => recur(n)(1)
