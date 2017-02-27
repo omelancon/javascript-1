@@ -144,7 +144,7 @@ FLow control shoud be done through monads.
 ``` javascript
 // bad
 const getBody = document => document && document.body ? document.body : undefined
-const getBody = document => document && document.body && document.body
+const getBody = document => document && document.body
 
 // good, a monadic api is more reliable and differs the decisions to the caller
 const getBody = document =>
