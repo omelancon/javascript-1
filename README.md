@@ -37,7 +37,7 @@ There are a lot of functional programming resources that can help you understand
 `Professor Frisby teaches composable programing in this serie, it is the softest introduction for Monads in javascript there is.`
 
 # Functional Programming the good, the bad, and you know what.
-## control flow
+## Control Flow
 You should use monads for control flow
 ``` javascript
 // bad
@@ -56,7 +56,7 @@ const makeFoo =
 ```
 *more examples meeded*
 
-## function purity: is paramount
+## Function Purity - Is Paramount
 You should compose impurity instean of closing onto them.
 ``` javascript
 import { readFileSync } form 'fs'
@@ -72,7 +72,7 @@ import compose from 'oncha/compose'
 const getBody = document => document.body
 export default const readFileBody = compose(getBody, JSON.parse, readFileSync)
 ```
-## Single return by function
+## Single Returns
 ``` javascript
 // bad
 const foo = a => {
@@ -89,7 +89,7 @@ const foo = a => bar(a ? a : 0)
 const foo (a = 0) =>  bar(a)
 ```
 
-## one input, one output
+## One Input, One Output
 ``` javascript
 // bad
 const add (a, b) => a + b
@@ -105,7 +105,7 @@ const add ([a, b]) => a + b
 const add a => b => a + b
 ```
 
-## Split code into composable function
+## Split Code Into Composable Function
 ``` javascript
 // bad
 const headerStringToObject = headerString => {
@@ -124,7 +124,7 @@ const prepare = compose(fromPairs, map(split('=')), map(trim), split(','), toStr
 const headerStringToObject = compose(combine, prepare)
 ```
 
-## Do not program imperative functions
+## Do Not Program Imperative Functions - Like Ever!
 Because you should tell a story by declaring what to do and not how you should avoid imperative functions that tend to tell the computer how to do the thing rather than declare what to do.
 ``` javascript
 // bad
@@ -143,7 +143,7 @@ const fromPair = ([key, value]) => ({ [key]: value })
 const fromPairs = map(fromPair)
 ```
 
-## Do not use null and undefined for flow control
+## Do Not Use `null` & `undefined` for Control Flow
 FLow control shoud be done through monads.
 ``` javascript
 // bad
@@ -162,7 +162,7 @@ const getBody = document =>
   .fork(() => 'can\'t get body of null', b => b)
 ```
 
-## assignations & state modification
+## Assignations & State Modification
 As a general roule you should avoid assignations at all costs, they alter state and increase the risk of sharing state in code and changin fucntions parameters.
 ``` javascript
 // bad
@@ -177,7 +177,7 @@ const foo = state => object.assign({}, state, { count: state.count + 1 })
 // best
 const foo = state => ({ ...state, count: state.count + 1 })
 ```
-*could use better examples*
+
 - shared state mutation : disallowed
 - local state mutation : disallowed
 
@@ -207,7 +207,7 @@ Do not use the helper naming and concept. A function has only one purpose for ch
 - coupling of modules
 - module pattern
 
-## Business moduels
+## Business Centric Modules
 Avoid at all cost technical modules. They should be centic to a business concern and separated as such.
 ``` javascript
 // bad
@@ -241,7 +241,9 @@ _ src
 └── index.html
 ```
 
-# style
+# Coding Style
+In this guide we propose a coding style that promotes funtional programming, it's funsamental that this style be opened to personal tastes and closed to divergence - there should be only one way to solve a problem.
+
 ## Avoid if expressions
 Do not use if expression, they influence imperative programming.
 ``` javascript
@@ -257,7 +259,7 @@ Do not use if expression, they influence imperative programming.
 (foo) => foo ? bar : baz
 ```
 
-## Prefer tenary expression over || and &&
+## Prefer Tenary Expression Over || and &&
 Prefer the usage of tenary expression where you are explicit of the else condition.
 ``` javascript
 // ok
@@ -268,7 +270,7 @@ Prefer the usage of tenary expression where you are explicit of the else conditi
 (foo) => foo ? baz : 0
 ```
 
-## Use tenary expression to determine data/fucntions rather than execution
+## Use Tenary Expression to Determine data/fucntions Rather Than Execution
 ``` javascript
 // bad
 const foo = data => make => make2 => contition => contition ? make(data) : make2(data)
@@ -278,7 +280,7 @@ const foo = make => make2 => contition => contition ? make : make2
 foo(make)(make2)(contdition)(data)
 ```
 
-## Don't use semi-column
+## Don't Use Semi-Column
 ``` javascript
 // bad
 const add = a => b => a + b;
@@ -287,7 +289,7 @@ const add = a => b => a + b;
 const add = a => b => a + b
 ```
 
-## Use dangling comma
+## Use Dangling Comma
 ``` javascript
 // bad
 const foo = {
@@ -302,7 +304,7 @@ const foo = {
 }
 ```
 
-## Avoid curly braces for code blocks
+## Avoid Curly Braces for Code Blocks
 Clutter, they are just clutter. You better use sequences.
 ``` javascript
 // bad
@@ -321,7 +323,7 @@ const incremnt = a => a + 1
 const make = flower => color => (flower(color), color)
 ```
 
-## Keep variables close to usage
+## Keep Variables Close to Usage
 Keep variables closer to usage, inside function bloc if possible and just prefer using string literals.
 ``` javascript
 // bad
