@@ -89,14 +89,14 @@ const foo (a = 0) =>  bar(a)
 ## One Input, One Output
 ``` javascript
 // bad
-const add (a, b) => a + b
+const add = (a, b) => a + b
 
-const foo (a, b, c, d, e) => (/* ... */)
+const foo = (a, b, c, d, e) => (/* ... */)
 const foo = a => b => c => d => e => (/* ... */)
 
 // ok
-const add ({a, b}) => a + b
-const add ([a, b]) => a + b
+const add = ({a, b}) => a + b
+const add = ([a, b]) => a + b
 
 // best
 const add = a => b => a + b
