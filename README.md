@@ -4,24 +4,24 @@
 All the details about writing javascript @ Aldo
 
 # airbnb
-Whatever is not covered in this guide you should look at [aribnb/javascript](https://github.com/airbnb/javascript). Moreover the linter configration speaks for itself.
+Whatever is not covered in this guide you should look at [aribnb/javascript](https://github.com/airbnb/javascript). Moreover the linter configuration speaks for itself.
 
 # Motivation
-The javascript functional programming guide was created to scope what can be done with javascript to promote a functional code base. At Aldo we believe that high level programming language like javascript benefit more from the maintainability of the functional style than a imperative performance focus style.
+The javascript functional programming guide was created to scope what can be done with javascript to promote a functional codebase. At Aldo we believe that high level programming language like javascript benefits more from the maintainability of the functional style than a imperative performance focus style.
 
-This guide aims not to restrict the style of individual contributors but set common ground for solving problems as a team with the Javascript language.
+This guide aims not to restrict the style of individual contributors but set common ground for solving problems as a team with the javascript language.
 
-This guide is opinionated, it is not the *ideal* or *better* way of programming in Javascript nor programming Functional Javascript, it is a idea of how it may be done. Anyone may use it, we at Aldo feel it's the better way to do it.
+This guide is opinionated, it is not the *ideal* or *better* way of programming in javascript nor programming Functional javascript, it is a idea of how it may be done. Anyone may use it, we at Aldo feel it's the better way to do it.
 
-You may use it, but at your own risks. We open source this guide in hopes it heals other derive work from it or simply use it and maybe help us improve it.
+You may use it, but at your own risks. We open source this guide in hopes it helps other derive work from it or simply use it and maybe help us improve it.
 
 # Values
 These are the values we uphold with this guide, and hope that this will help at releasing better software more regularly and steadily.
 
-- Pure functional & Functional paradigm prevails
+- Functional is the only way
 - Impurity must be rejected
 - Everything must be composable
-- Use Monads for flow control
+- Monads for flow control
 - Modular architecture comes first
 - Separation of concerns based on business requirements
 - Small is better
@@ -58,7 +58,7 @@ const makeFoo =
 ## Function Purity -- Is Paramount
 ### Impure dependencies must be composed.
 ``` javascript
-export default const readFileBody = filePath => {
+const readFileBody = filePath => {
   const fileContents = readFileSync(url)
   const json = JSON.parse(fileContents)
   return json.body
@@ -66,7 +66,7 @@ export default const readFileBody = filePath => {
 
 // good
 const getBody = document => document.body
-export default const readFileBody = compose(getBody, JSON.parse, readFileSync)
+const readFileBody = compose(getBody, JSON.parse, readFileSync)
 ```
 
 ### Do not share state
@@ -117,7 +117,7 @@ const add = a => b => a + b
 ## Split Code Into Composable Functions
 ``` javascript
 // bad
-const headerStringToObject = headerString => {
+const splitToKeyValuePair = headerString => {
   return headerString.split(',')
     .reduce((result, current) => {
       const keyValuePair = current.split('=')
@@ -129,8 +129,7 @@ const headerStringToObject = headerString => {
 }
 
 // good
-const prepare = compose(fromPairs, map(split('=')), map(trim), split(','), toString)
-const headerStringToObject = compose(combine, prepare)
+const splitToKeyValuePair = compose(combine, fromPairs, map(split('=')), map(trim), split(','), toString)
 ```
 
 ## Do Not Program Imperative Functions -- Like Ever!
@@ -334,7 +333,7 @@ const make = flower => color => (flower(color), color)
 ## Keep Variables Close to Usage
 Keep variables closer to usage, inside function bloc if possible and just prefer using string literals.
 ``` javascript
-// worst
+// bad
 const INC = 2
 ...
 const increment = a => a + INC
@@ -345,7 +344,7 @@ const indcremnt = a => {
   return a + INC
 }
 
-// best
+// good
 const indcremntBy2 = a =>  a + 2
 ```
 
@@ -520,6 +519,8 @@ It's a strange thing to write about TDD so late in a guide, but it is still most
 ## secret variables
 ## env variables
 ## http
+## tacit programming
+## functions must be reduced/shrinked
 
 # Topics that are covered by airbnb
 ## module export / import / require
