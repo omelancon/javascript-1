@@ -279,6 +279,11 @@ foo(make)(make2)(contdition)(data)
 ```
 
 ## Don't Use Semi-Column
+It just won't break. [It's][1] [fine.][2] [Really!][3]
+
+[1]: http://blog.izs.me/post/2353458699/an-open-letter-to-javascript-leaders-regarding
+[2]: http://inimino.org/~inimino/blog/javascript_semicolons
+[3]: https://www.youtube.com/watch?v=gsfbh17Ax9I
 ``` javascript
 // bad
 const add = a => b => a + b;
