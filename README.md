@@ -236,12 +236,10 @@ _ src
 ├── apple
 |   └── apple.component.js
 |   └── apple.container.js
-|   └── apple.router.js
 |   └── apple.saga.js
 ├── microsoft
 |   └── microsoft.component.js
 |   └── microsoft.container.js
-|   └── microsoft.router.js
 |   └── microsoft.saga.js
 └── index.html
 ```
