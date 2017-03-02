@@ -404,7 +404,7 @@ const state => ({ ...state, id : 1 }) // es6 syntax
 There can be just one: `const`. you should never use `var`, and avoid at all cost `let`.
 
 ## Pattern Matching
-Although pattern matching or deconstructuring is a cool tool in es6, it binds the function to the json structure.
+Although pattern matching or destructuring is a cool tool in es6, it binds the function to the json structure.
 ``` javascript
 // bad
 const parse = ({ a : { b } }) =>
