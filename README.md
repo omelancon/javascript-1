@@ -364,11 +364,13 @@ const trim = str => str.trim(new Regex(/[ ]+$/)))
 const trim = str => str.trim(/[ ]+$/)
 ```
 
-## function signature documentation (Hindley-Milner)
+## Function Type Signature Documentation (Hindley-Milner)
 You shoud document all functions with Hindley-Milner annotation, it is the prevalent type signature documentation in functional languages (haskel, elm, etc.) and it just makes a lot of sense to use it in functional javascript.
 ```
 // functionName :: type -> type -> type
+// split :: String -> String -> String
 ```
+*needs more examples*
 
 ## constants
 You should just use magic number and string literals. There is no point in confusing the reader with data hidden behind variables names, that are likely inappropriate.
@@ -462,12 +464,15 @@ Never use the new keyword.
 ```
 
 ## Generators : syntax
-## this : no, don't use it
-## unary operator : over ternary operations
+## `this` : no, don't use it
+Because we code pure function and avoid shared state we must not use the `this` keyword, ever.
 ## function keyword : you should not be using it
 ## arrow functions : is the default, noop, identity, always
 ## return keyword : disallowed
 ## await async : use a future
+```
+
+```
 ## tupple : least as possible
 ## promises : use a future
 ## ||, &&, ===, !==, etc
@@ -487,10 +492,10 @@ It's a strange thing to write about TDD so late in a guide, but it is still most
 
 # process
 ## Pull Request process
-## pull request approvers
-## who can merge
-## documenting components owners, etc
-## boy scout principle
+## Pull request approvers
+## Who can merge
+## Documenting components owners, etc
+## Boy scout principle
 ## todo, task in code vs task software
 ## definition of done
 
