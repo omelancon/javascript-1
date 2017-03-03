@@ -3,8 +3,12 @@
 # Aldo Javascript Functional Programming Guide
 All the details about writing javascript @ Aldo
 
-# airbnb
-Whatever is not covered in this guide you should look at [aribnb/javascript](https://github.com/airbnb/javascript). Moreover the linter configuration speaks for itself.
+#Topics
+- [Learning Functional Javascript](/learning)
+- [Javascript Application Architecture](/architecture)
+- [Testing](/testing)
+- [Developpment Process](/process)
+- [React](/react)
 
 # Motivation
 The javascript functional programming guide was created to scope what can be done with javascript to promote a functional codebase. At Aldo we believe that high level programming language like javascript benefits more from the maintainability of the functional style than a imperative performance focus style.
@@ -22,19 +26,6 @@ These are the values we uphold with this guide, and hope that this will help at 
 - Impurity must be rejected
 - Everything must be composable
 - Monads for flow control
-- Modular architecture comes first
-- Separation of concerns based on business requirements
-- Small is better
-- Less is more
-
-# Learning Functional Javascript
-There are a lot of functional programming resources that can help you understand better the benefits of functional programming, and of these in javascript, you ought to acquire that knowledge first.
-
-## [Mostly Adequate Guide](https://drboolean.gitbooks.io/mostly-adequate-guide)
-`Brian lonsdrof get to the point with his Mostly Adequate Guide, although it's a littelbit dated and was written before es6 this is still a gold mine.`
-
-## [Professor Frisby Introduces Composable Functional JavaScript](https://egghead.io/lessons/javascript-linear-data-flow-with-container-style-types-box)
-`Professor Frisby teaches composable programing in this serie, it is the softest introduction for Monads in javascript there is.`
 
 # Functional Programming the good, the bad, and you know what.
 ## Control Flow
@@ -151,7 +142,7 @@ const fromPairs = compose(combine, map(([key, value]) => ({ [key]: value })))
 ```
 
 ## Do Not Use `null` & `undefined` for Control Flow
-FLow control shoud be done through monads.
+Flow control shoud be done through monads.
 ``` javascript
 // bad
 const getBody = document => document && document.body ? document.body : undefined
@@ -169,6 +160,9 @@ const getBody = document =>
   .fork(() => 'can\'t get body of null', b => b)
 ```
 
+# Coding Style
+In this guide we propose a coding style that promotes functional programming, it's fundamental that this style be opened to personal tastes and closed to divergence ## there should be only one way to solve a problem.
+
 ## Assignations & State Modification
 As a general roule you should avoid assignations at all costs, they alter state and increase the risk of sharing state in code and changing functions parameters.
 ``` javascript
@@ -184,67 +178,6 @@ const foo = state => object.assign({}, state, { count: state.count + 1 })
 // best
 const foo = state => ({ ...state, count: state.count + 1 })
 ```
-
-## shared state mutation : disallowed
-
-## local state mutation : disallowed
-## first class functions : is the standard tool for composition
-## higher order functions: : is the standard tool for composition
-## curry and partial application : is the standard tool for composition
-## impurity : impure function can only be composed, never injected or closed uppon. Thye must be tagged with `//IMPURE`
-## map, reduce : for standard data manipulation
-## Types: String, Number, etc : know your types
-## Generators : how to use them
-## Types: Maybe, Identity, etc.
-
-
-# Code Organisation
-
-## Utils module and utils folders
-Do not use utils folder there you put non business logic code. This couples the codebase uselessly and increases its own complexity. Rather promote utils to a npm repository. If the usage is common enough to be on npm it could already be there or you will serve the nodejs open source community.
-
-## Helpers and utils with business logic
-Do not use the helper naming and concept. A function has only one purpose and its name should represent that, moreover it should be private to its module. Although it may cause code duplication, it will decrease complexity by decoupling modules.
-
-## copy code first
-## the code will fork
-## coupling of modules
-## module pattern
-
-## Separation of concerns based on business requirements
-Avoid at all cost technical modules. They should be centic to a business concern and separated as such.
-``` javascript
-// bad
-_ src
-├── components
-|   └── apple.js
-|   └── microsoft.js
-├── containers
-|   └── apple.js
-|   └── microsoft.js
-├── reducers
-|   └── apple.js
-|   └── microsoft.js
-├── sagas
-|   └── apple.js
-|   └── microsoft.js
-└── index.html
-
-// good
-_ src
-├── apple
-|   └── apple.component.js
-|   └── apple.container.js
-|   └── apple.saga.js
-├── microsoft
-|   └── microsoft.component.js
-|   └── microsoft.container.js
-|   └── microsoft.saga.js
-└── index.html
-```
-
-# Coding Style
-In this guide we propose a coding style that promotes functional programming, it's fundamental that this style be opened to personal tastes and closed to divergence ## there should be only one way to solve a problem.
 
 ## Avoid if expressions
 Do not use if expression, they influence imperative programming.
@@ -401,7 +334,6 @@ const state => assign(state, { id : 1 }) // oncha api
 const state => ({ ...state, id : 1 }) // es6 syntax
 ```
 
-
 ## let, const, var
 There can be just one: `const`. you should never use `var`, and avoid at all cost `let`.
 
@@ -471,7 +403,7 @@ Because we code pure function and avoid shared state we must not use the `this` 
 ## return keyword : disallowed
 ## await async : use a future
 ```
-
+Future > Promise
 ```
 ## tupple : least as possible
 ## promises : use a future
@@ -479,61 +411,19 @@ Because we code pure function and avoid shared state we must not use the `this` 
 ## dependecy injections
 ## temp variables
 
-
-# Test & TDD
-It's a strange thing to write about TDD so late in a guide, but it is still most important.
-
-## TDD: is the only way to do it
-## unit tests: at the module level
-## programming against an interface : first do it, then code impl
-## user test automation: for each accepatance test
-## test tools : don't, on ROBOT? investigation needed
-## mocking : don't
-
-# process
-## Pull Request process
-## Pull request approvers
-## Who can merge
-## Documenting components owners, etc
-## Boy scout principle
-## todo, task in code vs task software
-## definition of done
-
-# React
-## react components design and architecture
-## css
-## react specific syntax
-
-# externals
-## third-parties : must pass quorum approval process
-## ramda, underscore, jQuery, lodash : yeah you need to stop using those
-
-# devops
-## continuous integration
-## devops
-## acceptance tests
-
-# OOP principles
-## SOLID
-## DRY
-## reusability
-## design patterns
-
-# Other Topics
-## configuration
-## secret variables
-## env variables
+#IO
 ## http
+
 ## tacit programming
 ## functions must be reduced/shrinked
+## shared state mutation : disallowed
+## local state mutation : disallowed
+## first class functions : is the standard tool for composition
+## higher order functions: : is the standard tool for composition
+## curry and partial application : is the standard tool for composition
+## impurity : impure function can only be composed, never injected or closed uppon. Thye must be tagged with `//IMPURE`
+## map, reduce : for standard data manipulation
+## Types: String, Number, etc : know your types
+## Generators : how to use them
+## Types: Maybe, Identity, etc.
 
-# Topics that are covered by airbnb
-## module export / import / require
-
-# Contribution and changes to the guide
-To make a change to this guide you must create a pull request with your changes. The change can be debated in the pull request by anyone, but must uphold the [Values](#Values) and must have the unanimous yes of the guide quorum.
-
-# Aldo Javascript Functional Programming Guide Quorum
-- Simon Deshaies
-- Jean-Francois Dube
-- Ysael Pepin
