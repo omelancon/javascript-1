@@ -40,7 +40,55 @@ It should be easy to identify where a failure occur.
 There is less noise when scanning the implementation files and it's easier to locate them.
 > e.g. Modules in `src/products/` should have their test files in `src/products/tests/`
 
+
+> Q. Why do we suffix .test.js when already place that file in a tests sub folder ?
+
+> A. Because it's easier to locate a tests vs it's implementation
+
+#### With a single file
+```
+.
++-- src
+|   +-- shoes
+|       +-- high-heel.js
+|       +-- tests
+|           +-- high-heel.test.js
+``` 
+
+#### And with multiple files
+```
+.
++-- src
+|   +-- shoes
+|       +-- high-heel.js
+|       +-- snickers.js
+|       +-- tests
+|           +-- high-heel.test.js
+|           +-- snickers.js
+``` 
+#### There are numerous bad examples. Here's one example
+```
+.
++-- src
+|   +-- shoes
+|       +-- high-heel.js
+|       +-- snickers.js
+|       +-- high-heel.test.js
+|       +-- snickers.test.js
+``` 
+### UI component structure
+```
+.
++-- src
+|   +-- shoes
+|       +--
+|   +-- reducers
+|       +-- 
+```
+
 ## Refactor the actual implementation flow
+### Apply the functional paradigm to the function(s) you modify.
+_if you feel that you can quickly refactor an unrelated feature. Do it, but use common sense_
 - Do refactor incrementally to pure function
 - Run the existing test suite to make sure the system behave like the existing implementation
 - Refactor the tests so that their are *Simple*, *Easy to maintain* and *Easy to understand*
