@@ -14,3 +14,8 @@
 ## Boy scout principle
 ## todo, task in code vs task software
 ## definition of done
+- You have applied the codding guide
+- You have tested all the pure functoin
+- You have written the aceptance tests
+- You had a team member qa your work
+-
