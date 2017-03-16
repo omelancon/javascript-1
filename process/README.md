@@ -2,6 +2,10 @@
 
 # Process
 
+>>> - *Skills* over titles
+>>> - *Continuous* delivery over deadlines
+>>> - *Support* over blame
+>>> - *Collaboration* over competition
 
 ## Pull Request process
 ## Pull request approvers

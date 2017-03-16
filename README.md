@@ -71,7 +71,6 @@ const inc = () => state.count++
 const inc = (state = { count: 0 }) => ({ count : state.count + 1 })
 ```
 
-
 ## Single Returns
 ``` javascript
 // bad
@@ -120,7 +119,7 @@ const splitToKeyValuePair = headerString => {
 }
 
 // good
-const splitToKeyValuePair = compose(combine, fromPairs, map(split('=')), map(trim), split(','), toString)
+const splitToKeyValuePair = compose(combine, fromPairs, map(split('=')), map(trim), split(','))
 ```
 
 ## Do Not Program Imperative Functions -- Like Ever!
