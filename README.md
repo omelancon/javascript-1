@@ -1,8 +1,8 @@
 # Aldo Javascript Functional Programming Guide
-- [Learning](/learning)
 - [Architecture](/architecture)
-- [Testing](/testing)
+- [Learning](/learning)
 - [Process](/process)
+- [Testing](/testing)
 
 # Motivation
 The javascript functional programming guide was created to scope what can be done with javascript to promote a functional codebase. At Aldo, we believe that high-level programming language like javascript benefits more from the maintainability of the functional style than an imperative performance focused style.
