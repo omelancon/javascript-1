@@ -1,9 +1,6 @@
 ![it's a  draft](https://cdn.meme.am/cache/instances/folder781/66247781.jpg)
 
 # Aldo Javascript Functional Programming Guide
-All the details about writing javascript @ Aldo
-
-# Topics
 - [Learning](/learning)
 - [Architecture](/architecture)
 - [Testing](/testing)
