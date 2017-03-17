@@ -8,11 +8,12 @@
 > - *Collaboration* over competition
 
 ## Pull Request process
-## Pull request approvers
+## Pull Request approvers
 ## Who can merge
 ## Documenting components owners, etc
 ## Boy scout principle
 ## todo, task in code vs task software
+
 ## definition of done
 - You have applied the codding guide
 - You have tested all the pure functoin

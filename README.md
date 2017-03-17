@@ -1,5 +1,3 @@
-![it's a  draft](https://cdn.meme.am/cache/instances/folder781/66247781.jpg)
-
 # Aldo Javascript Functional Programming Guide
 - [Learning](/learning)
 - [Architecture](/architecture)
@@ -7,16 +5,16 @@
 - [Process](/process)
 
 # Motivation
-The javascript functional programming guide was created to scope what can be done with javascript to promote a functional codebase. At Aldo we believe that high level programming language like javascript benefits more from the maintainability of the functional style than a imperative performance focus style.
+The javascript functional programming guide was created to scope what can be done with javascript to promote a functional codebase. At Aldo, we believe that high-level programming language like javascript benefits more from the maintainability of the functional style than an imperative performance focused style.
 
-This guide aims not to restrict the style of individual contributors but set common ground for solving problems as a team with the javascript language.
+This guide aims not to restrict the style of individual contributors but set the common ground for solving problems as a team with the javascript language.
 
-This guide is opinionated, it is not the *ideal* or *better* way of programming in javascript nor programming Functional javascript, it is a idea of how it may be done. Anyone may use it, we at Aldo feel it's the better way to do it.
+This guide is opinionated, it is not the *ideal* or *better* way of programming in javascript nor programming Functional javascript, it is an idea of how it may be done. Anyone may use it, we at Aldo feel it's the better way to do it.
 
 You may use it, but at your own risks. We open source this guide in hopes it helps other derive work from it or simply use it and maybe help us improve it.
 
 # Values
-These are the values we uphold with this guide, and hope that this will help at releasing better software more regularly and steadily.
+These are the values we uphold with this guide and hope that this will help at releasing better software more regularly and steadily.
 
 - Functional is the only way
 - Impurity must be rejected
@@ -24,8 +22,26 @@ These are the values we uphold with this guide, and hope that this will help at 
 - Monads for flow control
 
 # Functional Programming the good, the bad, and you know what.
+
+## Style Guide
+This document is a collection of directives to better design code in Functional Javascript. But more directly [next-format](https://www.npmjs.com/package/next-format) is the pretty-printer we chose to enforce the way of laying out our javascript; it replaces the usual linter and rules that are up for interpretations and discussions. All the code must be next-formatted.
+
+## Point-Free Style
+You should favor Point-Free Style [(tacit programming)](https://en.wikipedia.org/wiki/Tacit_programming), where you do not name the data you are operating on.
+``` javascript
+// bad
+const do = shoe => selectDiscount(selectPriceObject(shoe))
+
+// good
+const do = compose(selectDiscount, selectPriceObject)
+```
+
+### Functions Must be Shrinked
+You should shrink the function to their simplest composable representation.
+ *needs examples*
+
 ## Control Flow
-You should use monads for control flow
+You should use monads for control flow.
 ``` javascript
 // bad
 const makeFoo = foo => {
@@ -41,6 +57,11 @@ const makeFoo =
       .fold(make)
 ```
 *more examples needed*
+* Future, Either, Maybe, List*
+
+### asynchronous
+Because we favor monadic workflow asynchronous processing should be encapsulated in the `Future` monad.
+ *needs examples*
 
 ## Function Purity -- Is Paramount
 ### Impure dependencies must be composed.
@@ -59,12 +80,34 @@ const readFileBody = compose(getBody, JSON.parse, readFileSync)
 ### Do not share state
 ``` javascript
 // bad
-const state = {}
-
 const inc = () => state.count++
 
 // good
 const inc = (state = { count: 0 }) => ({ count : state.count + 1 })
+```
+
+### Local State Mutation
+You should try to avoid mutating local state. The inconvenience with doing it is that you might inadvertently cause a side effect by mutating a function parameter.
+``` javascript
+// bad
+const fiftyPercentDiscount = shoe => {
+  shoe.price + shoeVariant.price / 2
+  return shoe
+}
+
+// good
+const fiftyPercentDiscount = shoe => ({ ...shoe, price: shoe.price / 2 })
+```
+
+### Document Impurity
+Impure functions or impure function groups must be commented with `IMPURE` the same can be done for pure functions `PURE`.
+``` javascript
+// PURE
+const upper = a => s.toUpperCase()
+const selectBody = res => res.body
+
+// IMPURE
+const requestBodyToUpperCase = comspose(upper, selectBody, getHttp)
 ```
 
 ## Single Returns
@@ -119,7 +162,7 @@ const splitToKeyValuePair = compose(combine, fromPairs, map(split('=')), map(tri
 ```
 
 ## Do Not Program Imperative Functions -- Like Ever!
-Because you should tell a story by declaring what to do and not how, you should avoid imperative functions that tend to tell the computer how to do the thing rather than declare what to do.
+Because you should tell a story by declaring what to do and not how you should avoid imperative functions that tend to tell the computer how to do the thing rather than declare what to do.
 ``` javascript
 // bad
 function fromPairs(pairs) {
@@ -137,7 +180,7 @@ const fromPairs = compose(combine, map(([key, value]) => ({ [key]: value })))
 ```
 
 ## Do Not Use `null` & `undefined` for Control Flow
-Flow control shoud be done through monads.
+Control flow should be done through monads.
 ``` javascript
 // bad
 const getBody = document => document && document.body ? document.body : undefined
@@ -155,11 +198,8 @@ const getBody = document =>
   .fork(() => 'can\'t get body of null', b => b)
 ```
 
-# Coding Style
-In this guide we propose a coding style that promotes functional programming, it's fundamental that this style be opened to personal tastes and closed to divergence ## there should be only one way to solve a problem.
-
 ## Assignations & State Modification
-As a general roule you should avoid assignations at all costs, they alter state and increase the risk of sharing state in code and changing functions parameters.
+As a general rule you should avoid assignations at all costs, they alter state and increase the risk of sharing state in code and changing functions parameters.
 ``` javascript
 // bad
 const foo = state => {
@@ -224,21 +264,6 @@ const add = a => b => a + b;
 const add = a => b => a + b
 ```
 
-## Use Dangling Comma
-``` javascript
-// bad
-const foo = {
-  bar,
-  baz
-}
-
-// good
-const foo = {
-  bar,
-  baz,
-}
-```
-
 ## Avoid Curly Braces for Code Blocks
 Clutter, they are just clutter. You better use sequences. If you need curly braces, your function is probably too big, has multiple concerns or is not built properly.
 ``` javascript
@@ -247,6 +272,7 @@ const incremnt = a => {
   return a + 1
 }
 
+// bad
 const make = flower => color => {
   flower(color)
   return color
@@ -259,7 +285,7 @@ const make = flower => color => (flower(color), color)
 ```
 
 ## Keep Variables Close to Usage
-Keep variables closer to usage, inside function bloc if possible and just prefer using string literals.
+Keep variables closer to usage, inside function block if possible and just prefer using string literals.
 ``` javascript
 // bad
 const INC = 2
@@ -293,7 +319,7 @@ const trim = str => str.trim(/[ ]+$/)
 ```
 
 ## Function Type Signature Documentation (Hindley-Milner)
-You shoud document all functions with Hindley-Milner annotation, it is the prevalent type signature documentation in functional languages (haskel, elm, etc.) and it just makes a lot of sense to use it in functional javascript.
+You should document all functions with Hindley-Milner annotation, it is the prevalent type signature documentation in functional languages (Haskell, Elm, etc.) and it just makes a lot of sense to use it in functional javascript.
 ```
 // functionName :: type -> type -> type
 // split :: String -> String -> String
@@ -301,7 +327,7 @@ You shoud document all functions with Hindley-Milner annotation, it is the preva
 *needs more examples*
 
 ## constants
-You should just use magic number and string literals. There is no point in confusing the reader with data hidden behind variables names, that are likely inappropriate.
+You should just use magic number and string literals. There is no point in confusing the reader with data are hidden behind variables names, that are likely inappropriate.
 ``` javascript
 // bad
 const USER_DEFAULT_COUNT = 5
@@ -330,7 +356,7 @@ const state => ({ ...state, id : 1 }) // es6 syntax
 ```
 
 ## let, const, var
-There can be just one: `const`. you should never use `var`, and avoid at all cost `let`.
+There can be just one: `const`. you should never use `var` and avoid at all cost `let`.
 
 ## Pattern Matching
 Although pattern matching or destructuring is a cool tool in es6, it binds the function to the json structure.
@@ -351,7 +377,7 @@ const parse = path => compose(parseInt, path)
 Use [recursion](#Recursion & Tail Call).
 
 ## Recursion & Tail Call
-To make a tail call resursion you need to place the function call at the end of your function and have it return the value. [see es6-recursion-tail-recursion](http://www.door3.com/insights/es6-recursion-tail-recursion)
+To make a tail call recursion you need to place the function call at the end of your function and have it return the value. [see es6-recursion-tail-recursion](http://www.door3.com/insights/es6-recursion-tail-recursion)
 ``` javascript
 // recur :: Number -> Number -> Number
 const recur = n => acc =>  n == 0 ? acc : recur(n-1)(n * acc)
@@ -363,62 +389,38 @@ const factorial = (n) => recur(n)(1)
 ## `new` keyword
 Never use the new keyword.
 
-## linter
-*eslint*
-``` javascript
-{
-  "extends": "airbnb",
-  "rules": {
-    "no-shadow": 0,
-    "no-use-before-define": 0,
-    "semi": [
-      "error",
-      "never"
-    ],
-    "no-sequences": 0,
-    "no-confusing-arrow": 0,
-    "func-call-spacing": 0,
-    "import/no-unresolved": 0,
-    "import/no-extraneous-dependencies": 0,
-    "import/extensions": 0
-  },
-  "globals": {
-    "it": true,
-    "describe": true
-  }
-}
-```
-
-## Generators : syntax
-## `this` : no, don't use it
+## `this`
 Because we code pure function and avoid shared state we must not use the `this` keyword, ever.
-## function keyword : you should not be using it
 
-## arrow functions : is the default, noop, identity, always
-## return keyword :
- `disallowed`
-## await async : use a future
+## Function Keyword
+You should favor arrow functions over the function keyword.
+
+## Arrow Functions : is the default, noop, identity, always
+You should always use array function if you can. It's shorter more concise lambda and does not come with an implicit state but it's lexical context.
+
+### Always
+```javascript
+// bad
+function () { return 'Hello World' }
+
+// good
+() => 'Hello World'
 ```
-Future > Promise
+
+### Identity
+```javascript
+// bad
+function (a) { return a }
+
+// good
+a => a
 ```
-## promises : use a future
-## ||, &&, ===, !==, etc
-## dependecy injections
-## temp variables
 
-#IO
-## http
+### Noop
+```javascript
+// bad
+function () { }
 
-## tacit programming
-## functions must be reduced/shrinked
-## shared state mutation : disallowed
-## local state mutation : disallowed
-## first class functions : is the standard tool for composition
-## higher order functions: : is the standard tool for composition
-## curry and partial application : is the standard tool for composition
-## impurity : impure function can only be composed, never injected or closed uppon. Thye must be tagged with `//IMPURE`
-## map, reduce : for standard data manipulation
-## Types: String, Number, etc : know your types
-## Generators : how to use them
-## Types: Maybe, Identity, etc.
-
+// good
+() => ()
+```
