@@ -3,7 +3,7 @@
 # Aldo Javascript Functional Programming Guide
 All the details about writing javascript @ Aldo
 
-#Topics
+# Topics
 - [Learning](/learning)
 - [Architecture](/architecture)
 - [Testing](/testing)
