@@ -4,11 +4,10 @@
 All the details about writing javascript @ Aldo
 
 #Topics
-- [Learning Functional Javascript](/learning)
-- [Javascript Application Architecture](/architecture)
+- [Learning](/learning)
+- [Architecture](/architecture)
 - [Testing](/testing)
-- [Developpment Process](/process)
-- [React](/react)
+- [Process](/process)
 
 # Motivation
 The javascript functional programming guide was created to scope what can be done with javascript to promote a functional codebase. At Aldo we believe that high level programming language like javascript benefits more from the maintainability of the functional style than a imperative performance focus style.
@@ -354,7 +353,6 @@ const parse = path => compose(parseInt, path)
 ## for, loops, while, foreach
 Use [recursion](#Recursion & Tail Call).
 
-
 ## Recursion & Tail Call
 To make a tail call resursion you need to place the function call at the end of your function and have it return the value. [see es6-recursion-tail-recursion](http://www.door3.com/insights/es6-recursion-tail-recursion)
 ``` javascript
@@ -398,13 +396,14 @@ Never use the new keyword.
 ## `this` : no, don't use it
 Because we code pure function and avoid shared state we must not use the `this` keyword, ever.
 ## function keyword : you should not be using it
+
 ## arrow functions : is the default, noop, identity, always
-## return keyword : disallowed
+## return keyword :
+ `disallowed`
 ## await async : use a future
 ```
 Future > Promise
 ```
-## tupple : least as possible
 ## promises : use a future
 ## ||, &&, ===, !==, etc
 ## dependecy injections
