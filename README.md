@@ -250,20 +250,6 @@ const foo = make => make2 => contition => contition ? make : make2
 foo(make)(make2)(contdition)(data)
 ```
 
-## Don't Use Semicolons
-It just won't break. [It's][1] [fine.][2] [Really!][3]
-
-[1]: http://blog.izs.me/post/2353458699/an-open-letter-to-javascript-leaders-regarding
-[2]: http://inimino.org/~inimino/blog/javascript_semicolons
-[3]: https://www.youtube.com/watch?v=gsfbh17Ax9I
-``` javascript
-// bad
-const add = a => b => a + b;
-
-// good
-const add = a => b => a + b
-```
-
 ## Avoid Curly Braces for Code Blocks
 Clutter, they are just clutter. You better use sequences. If you need curly braces, your function is probably too big, has multiple concerns or is not built properly.
 ``` javascript
@@ -281,6 +267,7 @@ const make = flower => color => {
 // good
 const incremnt = a => a + 1
 
+// good
 const make = flower => color => (flower(color), color)
 ```
 
