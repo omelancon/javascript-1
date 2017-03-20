@@ -1,22 +1,12 @@
-![it's a  draft](https://cdn.meme.am/cache/instances/folder781/66247781.jpg)
-
 # Process
 
-> - *Skills* over titles
-> - *Continuous* delivery over deadlines
-> - *Support* over blame
-> - *Collaboration* over competition
+## Definition of Done
+- Follow the Test Guide
+- Follow the Coding Guide
+- Get your pull request approved
 
-## Pull Request process
-## Pull Request approvers
+## Pull Request
+The purpose of a pull request is to ensure the quality of the work being proposed. The focus should be on the design and the functionality itself. The best way to accomplish this is to read the spec, read the implementation, validate the principle that supports it and conduct an actual test of the feature.
+
 ## Who can merge
-## Documenting components owners, etc
-## Boy scout principle
-## todo, task in code vs task software
-
-## definition of done
-- You have applied the codding guide
-- You have tested all the pure functoin
-- You have written the aceptance tests
-- You had a team member qa your work
--
+To merge you have to complete the [DOD](Definition of Done) and have a repository owner give you the green light.

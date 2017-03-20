@@ -68,8 +68,9 @@ Because we favor monadic workflow asynchronous processing should be encapsulated
 ## Function Purity -- Is Paramount
 ### Impure dependencies must be composed.
 ``` javascript
+// bad
 const readFileBody = filePath => {
-  const fileContents = readFileSync(url)
+  const fileContents = readFileSync(filePath)
   const json = JSON.parse(fileContents)
   return json.body
 }
