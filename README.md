@@ -57,11 +57,13 @@ const makeFoo =
       .fold(make)
 ```
 *more examples needed*
-* Future, Either, Maybe, List*
+
+*Future, Either, Maybe, List*
 
 ### asynchronous
 Because we favor monadic workflow asynchronous processing should be encapsulated in the `Future` monad.
- *needs examples*
+
+*needs examples*
 
 ## Function Purity -- Is Paramount
 ### Impure dependencies must be composed.
