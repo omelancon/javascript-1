@@ -19,7 +19,7 @@ These are the values we uphold with this guide and hope that this will help at r
 - Functional is the only way
 - Impurity must be rejected
 - Everything must be composable
-- Monads for flow control
+- Monads for control flow
 
 # Functional Programming the good, the bad, and you know what.
 
