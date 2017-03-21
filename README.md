@@ -36,7 +36,7 @@ const do = shoe => selectDiscount(selectPriceObject(shoe))
 const do = compose(selectDiscount, selectPriceObject)
 ```
 
-### Functions Must be Shrinked
+## Functions Must be Shrinked
 You should shrink the function to their simplest composable representation.
  *needs examples*
 
@@ -60,13 +60,12 @@ const makeFoo =
 
 *Future, Either, Maybe, List*
 
-### asynchronous
+## Asynchronous
 Because we favor monadic workflow asynchronous processing should be encapsulated in the `Future` monad.
 
 *needs examples*
 
-## Function Purity -- Is Paramount
-### Impure dependencies must be composed.
+## Impure Dependencies Must be Composed - Pure Functions
 ``` javascript
 // bad
 const readFileBody = filePath => {
@@ -80,7 +79,7 @@ const getBody = document => document.body
 const readFileBody = compose(getBody, JSON.parse, readFileSync)
 ```
 
-### Do not share state
+## Do Not Share State - Pure Functions
 ``` javascript
 // bad
 const inc = () => state.count++
@@ -89,7 +88,7 @@ const inc = () => state.count++
 const inc = (state = { count: 0 }) => ({ count : state.count + 1 })
 ```
 
-### Local State Mutation
+## Local State Mutation
 You should try to avoid mutating local state. The inconvenience with doing it is that you might inadvertently cause a side effect by mutating a function parameter.
 ``` javascript
 // bad
@@ -102,7 +101,7 @@ const fiftyPercentDiscount = shoe => {
 const fiftyPercentDiscount = shoe => ({ ...shoe, price: shoe.price / 2 })
 ```
 
-### Document Impurity
+## Document Impurity
 Impure functions or impure function groups must be commented with `IMPURE` the same can be done for pure functions `PURE`.
 ``` javascript
 // PURE
@@ -217,7 +216,7 @@ const foo = state => object.assign({}, state, { count: state.count + 1 })
 const foo = state => ({ ...state, count: state.count + 1 })
 ```
 
-## Avoid if expressions
+## Avoid If Expressions
 Do not use if expression, they influence imperative programming.
 ``` javascript
 // bad
@@ -316,7 +315,7 @@ You should document all functions with Hindley-Milner annotation, it is the prev
 ```
 *needs more examples*
 
-## constants
+## Constants
 You should just use magic number and string literals. There is no point in confusing the reader with data are hidden behind variables names, that are likely inappropriate.
 ``` javascript
 // bad
@@ -345,7 +344,7 @@ const state => assign(state, { id : 1 }) // oncha api
 const state => ({ ...state, id : 1 }) // es6 syntax
 ```
 
-## let, const, var
+## Let, Const, Var
 There can be just one: `const`. you should never use `var` and avoid at all cost `let`.
 
 ## Pattern Matching
@@ -363,7 +362,7 @@ const parse = path => data =>
 const parse = path => compose(parseInt, path)
 ```
 
-## for, loops, while, foreach
+## For, Loops, While, Foreach
 Use [recursion](#Recursion & Tail Call).
 
 ## Recursion & Tail Call
@@ -376,10 +375,10 @@ const recur = n => acc =>  n == 0 ? acc : recur(n-1)(n * acc)
 const factorial = (n) => recur(n)(1)
 ```
 
-## `new` keyword
+## New Keyword
 Never use the new keyword.
 
-## `this`
+## This Keyword
 Because we code pure function and avoid shared state we must not use the `this` keyword, ever.
 
 ## Function Keyword
@@ -388,7 +387,7 @@ You should favor arrow functions over the function keyword.
 ## Arrow Functions : is the default, noop, identity, always
 You should always use array function if you can. It's shorter more concise lambda and does not come with an implicit state but it's lexical context.
 
-### Always
+## Always
 ```javascript
 // bad
 function () { return 'Hello World' }
@@ -397,7 +396,7 @@ function () { return 'Hello World' }
 () => 'Hello World'
 ```
 
-### Identity
+## Identity
 ```javascript
 // bad
 function (a) { return a }
@@ -406,11 +405,11 @@ function (a) { return a }
 a => a
 ```
 
-### Noop
+## Noop
 ```javascript
 // bad
 function () { }
 
 // good
-() => ()
+() => { }
 ```
