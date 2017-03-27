@@ -1,4 +1,4 @@
-# Aldo Test Guide
+# Aldo Testing Guide
 When building javascript applications at Aldo there are 2 types of tests we promote, Functional Tests and Unit Tests through TDD. They are an essential part of our quality strategy. With Unit Tests, we test the business logic by writing tests against the functional components. While we test the system boundaries and the user interactions via Functional Tests.
 
 # Functional Tests (FT)

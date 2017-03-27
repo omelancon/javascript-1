@@ -1,8 +1,8 @@
 # Process
 
 ## Definition of Done (DOD)
-- Follow the Test Guide
-- Follow the Coding Guide
+- Follow the Testing Guide
+- Follow the Programming Guide
 - Get your pull request approved
 
 ## Pull Request
