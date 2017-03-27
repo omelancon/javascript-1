@@ -1,62 +1,74 @@
-![it's a  draft](https://cdn.meme.am/cache/instances/folder781/66247781.jpg)
-
 # Aldo Test Guide
-All the details about writing tests @ Aldo
+When building javascript applications at Aldo there are 2 types of tests we promote, Functional Tests and Unit Tests through TDD. They are an essential part of our quality strategy. With Unit Tests, we test the business logic by writing tests against the functional components. While we test the system boundaries and the user interactions via Functional Tests.
 
-Integration test
+# Functional Tests (FT)
+For functional tests, we use _ROBOT Framework_ with _Selenium WebDriver_.
 
-# Test & TDD
-It's a strange thing to write about TDD so late in a guide, but it is still most important. TDD is not about practicing or increasing code coverage.
+## Tests Organization
+Test files should be in the `e2e` folder at the root of the repository.
 
-A test suite should be considered as documentation artefact. It should be explain what a feature does.
+```
+.
++-- e2e
+|   +-- robot
+|       +-- tests
+|           +-- epics
+|               +-- (epic link)
+|                   +-- (task id)
+```
 
-It should be easy to identify where a failure occur.
+# Test Driven Development (TDD)
+TDD is a developer discipline, where you write the test before the implementation. it's fundamental in the effort to deliver a better quality of software because it [reduces production bug density 40% — 80%](https://www.computer.org/csdl/mags/so/2007/03/s3024.pdf).
 
-## TDD: is the only way to do it. Use common sense
-- It's a discpline, it should be done incrementally.
-- Pretending coverage is high is _NOT_ TDD
-- 3 laws of TDD from uncle bob are:
-
+## 3 laws of TDD
 1. You are not allowed to write any production code unless it is to make a failing unit test pass.
 2. You are not allowed to write any more of a unit test than is sufficient to fail; and compilation failures are failures.
 3. You are not allowed to write any more production code than is sufficient to pass the one failing unit test.
     > ![Uncle Bob 3 rules of TDD](http://butunclebob.com/ArticleS.UncleBob.TheThreeRulesOfTdd)
 
-
-## Unit tests: 
-- We do it @ the module level
-- A module must be pure
+# Unit Tests
+- We do it at the module level.
+- A module must be pure.
     - Test pure composition of pure functions.
-- We will not mock boundaries and neither test them.
-- If a composition need data from a boundary, then we pass sample of data to the composition and test the result.
+- We will not mock boundaries and neither tests them.
+- If a composition needs data from a boundary, then we pass the sample of data to the composition and test the result.
 - A test should be:
-    * Simple
-    * Easy to maintain
-    * Easy to understand
+    * Simple.
+    * Easy to maintain.
+    * Easy to understand.
 
-## programming against an interface (function) : first do it, then code impl
-- Test files should be in a folder near implementation.
+## Tools
+Because we are testing only pure implementations the test requirements are quite simple. There is no need for mocking of spying and the only tool that is really needed for unit tests is a test runner such a _mocha_ or _Tape_. We use nodejs native library for asserts.
+
+## Tests Organization
+Test files should be in a `tests` folder near implementation.
 
 There is less noise when scanning the implementation files and it's easier to locate them.
 > e.g. Modules in `src/products/` should have their test files in `src/products/tests/`
 
-
 > Q. Why do we suffix .test.js when already place that file in a tests sub folder ?
 
-> A. Because it's easier to locate a tests vs it's implementation
+> A. Because it's easier to locate tests vs it's implementation
 
-#### With a single file
 ```
+// bad
+.
++-- src
+|   +-- shoes
+|       +-- high-heel.js
+|       +-- snickers.js
+|       +-- high-heel.test.js
+|       +-- snickers.test.js
+
+// good: single file
 .
 +-- src
 |   +-- shoes
 |       +-- high-heel.js
 |       +-- tests
 |           +-- high-heel.test.js
-``` 
 
-#### And with multiple files
-```
+// good: multiple files
 .
 +-- src
 |   +-- shoes
@@ -65,56 +77,4 @@ There is less noise when scanning the implementation files and it's easier to lo
 |       +-- tests
 |           +-- high-heel.test.js
 |           +-- snickers.js
-``` 
-#### There are numerous bad examples. Here's one example
 ```
-.
-+-- src
-|   +-- shoes
-|       +-- high-heel.js
-|       +-- snickers.js
-|       +-- high-heel.test.js
-|       +-- snickers.test.js
-``` 
-### UI component structure
-```
-.
-+-- src
-|   +-- shoes
-|       +--
-|   +-- reducers
-|       +-- 
-```
-
-## Refactor the actual implementation flow
-### Apply the functional paradigm to the function(s) you modify.
-_if you feel that you can quickly refactor an unrelated feature. Do it, but use common sense_
-- Do refactor incrementally to pure function
-- Run the existing test suite to make sure the system behave like the existing implementation
-- Refactor the tests so that their are *Simple*, *Easy to maintain* and *Easy to understand*
-- And yeah, just test the pure composition
-- Run the test
-- Create a PR
-
-## user test automation: for each accepatance test
-
-## test tools : don't, on ROBOT? investigation needed
-
-Sinon, chai, mockery, etc are great tools. But they are all coming after what's not native to nodeJS.
-
-- NodeJS can already do assert, let's use it.
-- NodeJS can't do mocking. Huh oh, we don't do mocking, we test pure composition.
-
-## Mocking
-### Don't
-- Mock
-- It add useless complexity.
-### Do
-- Test pure module composition.
-
-
-# devops
-
-## continuous integration
-## devops
-## acceptance tests
