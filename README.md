@@ -21,6 +21,9 @@ These are the values we uphold with this guide and hope that this will help at r
 - Everything must be composable
 - Monads for control flow
 
+# React
+We build React the AirBnb way [https://github.com/airbnb/javascript/tree/master/react].
+
 # Functional Programming the good, the bad, and you know what.
 
 ## Style Guide
