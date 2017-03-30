@@ -311,12 +311,72 @@ const trim = str => str.trim(/[ ]+$/)
 ```
 
 ## Function Type Signature Documentation (Hindley-Milner)
-You should document all functions with Hindley-Milner annotation, it is the prevalent type signature documentation in functional languages (Haskell, Elm, etc.) and it just makes a lot of sense to use it in functional javascript.
+You should document all functions with Hindley-Milner annotation, it is the prevalent type signature documentation in functional languages (Haskell, Elm, OCaml, etc.) and it just makes a lot of sense to use it in functional Javascript.
 ```
 // functionName :: type -> type -> type
-// split :: String -> String -> String
+
+// add :: Number -> Number -> Number
+const add = x => y => x + y
+
+// concat :: Array -> Array -> Array
+const concat = a => b => a.concat(b)
+
+// filter :: (Any -> Boolean) -> Array -> Array
+const filter = f => a => a.filter(f)
+
+// map :: (Any -> Any) -> Array -> Array
+const map = f => a => a.map(f)
+
+// replace :: Array -> String -> String
+const replace = ([subStr, newSubstr]) => s => s.replace(subStr, newSubstr)
+
+// uncurriedMaxOfThree :: (Number, Number, Number) -> Number
+uncurriedMaxOfThree (x, y, z) = Math.max(x, y, z)
+
+// curry :: ((Any, Any) -> Any) -> Any -> Any -> Any
+const curry = f => x => y => f(x, y)
+
+// uncurry :: (Any -> Any -> Any) -> (Any, Any) -> Any
+const uncurry => f => (x, y) =>  f(x)(y)
 ```
-*needs more examples*
+
+### Parentheses in Hindely-Milner
+Parentheses in Hindley-Milner notation can play three roles, of which only two are mandatory.
+
+First of all, parentheses will denote tuples of arguments for uncurried functions. Arguments as tuples indicate that the function cannot be partially applied. In functional Javascript, you generally want to avoid uncurried functions.
+
+```
+// uncurriedAdd :: (Number, Number) -> Number
+const uncurriedAdd = (x, y) -> x + y
+
+// This will not partially evaluate, but return NaN instead
+uncurriedAdd(1)
+```
+
+
+A common use of parentheses is also to enclose functions, i.e. to state that the argument you expect is a function with the given enclosed signature.
+
+```
+// The first argument is expected to be of type (Any -> Any)
+// so it would be incorrect to omit the parentheses.
+
+// apply :: (Any -> Any) -> Any -> Any
+const apply = f => x => f(x)
+```
+
+
+Finally, while this final case is optional, parentheses can be used to encourage the user to partially apply a function. Indeed some functions such as `curry` are rarely, if ever, fully evaluated.
+
+```
+// Both signatures are correct, but the second one indicates to the user
+// that curry should be partially applied to return a function to be reused later
+
+// curry :: ((Any, Any) -> Any) -> Any -> Any -> Any
+// curry :: ((Any, Any) -> Any) -> (Any -> Any -> Any)
+const curry = f => x => y => f(x, y)
+
+// The end parentheses are optional since Any -> Any -> Any is equivalent to (Any -> Any -> Any)
+```
 
 ## Constants
 You should just use magic number and string literals. There is no point in confusing the reader with data are hidden behind variables names, that are likely inappropriate.
