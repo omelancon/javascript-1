@@ -378,6 +378,83 @@ const curry = f => x => y => f(x, y)
 // The end parentheses are optional since Any -> Any -> Any is equivalent to (Any -> Any -> Any)
 ```
 
+## Partial Evaluation
+
+### A Word On Partial Application
+
+Partial application is when you give some of its arguments to a function to return a function that takes fewer arguments. The process of making a function partially applicable is also referred as currying.
+
+```
+// add :: Number -> Number -> Number
+const add = x => y => x + y
+
+// addTwo is a partial application of add
+
+// addTwo :: Number -> Number
+const addTwo = add(2)
+
+addTwo(5) //=> 7
+```
+
+### More Than Just Application
+
+Always keep in mind that partial application of a function does not partially evaluate it. All computations, however heavy they may be, are executed only once all arguments have been provided. Partial evaluation is a good way to improve partially applied functions by precomputing as much as possible with the given arguments. 
+
+```
+// This function can be partially applied, but is not partially evaluated
+// addThenMultiply :: Number -> Number -> Number -> Number
+const addThenMultiply = x => y => z => (x + y) * z
+
+// This function is partially evaluated when partially applied
+// betterAddThenMultiply :: Number -> Number -> Number -> Number
+const betterAddThenMultiply = x => y => {
+  const value = x + y
+  return z => value * z
+}
+
+// multiplyFour will unnecessarily compute 2 + 2 everytime it is called
+// multiplyFour :: Number -> Number
+const multiplyFour = addThenMultiply(2)(2)
+
+// betterMultiplyFour already computed 2 + 2
+// betterMultiplyFour :: Number -> Number
+const betterMultiplyFour = betterAddThenMultiply(2)(2)
+```
+
+The purpose of the previous example is to introduce the concept of partial evaluation. Although, this example is hardly faster in practice since saving a single arithmetic operation is negligible. Let's consider a more meaningful example where partial evaluation gives a significant advantage.
+
+```
+// filterArraysThenConcat :: (Any -> Boolean) -> Array -> Array -> Array
+const filterArraysThenConcat = myFilter => firstArray => {
+  const filteredFirstArray = firstArray.filter(myFilter)
+  return secondArray => filteredFirstArray.concat(secondArray.filter(myFilter))
+}
+
+const myFavouriteNumbers = [1, 2, 3, ..., 999999, 1000000]
+const evenFilter = n => n % 2 === 0
+
+// extendMyArrayOfEvenNumbers :: Array -> Array
+const extendMyArrayOfEvenNumbers = filterArraysThenConcat(evenFilter)(myFavouriteNumbers)
+
+// This call is way more efficient since the first filter has already been applied
+extendMyArrayOfEvenNumbers([-1, -2, -3])
+```
+
+### Usage
+
+Partial evaluation is a useful optimization tool when used properly. Its main downside is readability, observe that we had to break our [rule about curly braces](https://github.com/aldo-dev/javascript#avoid-curly-braces-for-code-blocks) in the process. For that reason it should not be systematically used.
+
+#### When To Use
+
+- Partially applied functions that you intend to reuse a lot
+- Partially applied functions which execution can be arbitrarily long (ex: operations on huge Arrays)
+
+#### When Not To Use
+
+- When readability becomes an issue, maybe write smaller composable functions
+- Never use partial evaluation for impure functions
+- Whenever it is not absolutely necessary!
+
 ## Constants
 You should just use magic number and string literals. There is no point in confusing the reader with data are hidden behind variables names, that are likely inappropriate.
 ``` javascript
