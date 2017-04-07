@@ -112,7 +112,7 @@ const upper = a => s.toUpperCase()
 const selectBody = res => res.body
 
 // IMPURE
-const requestBodyToUpperCase = comspose(upper, selectBody, getHttp)
+const requestBodyToUpperCase = compose(upper, selectBody, getHttp)
 ```
 
 ## Single Returns
