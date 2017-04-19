@@ -30,5 +30,5 @@ The approval means that the approver has done its due diligence.
 1. Validate that the DOD was followed.
 1. Remove the `Needs Review` tag and submit your review comment (approve/comment).
 
-### Who Can Merge
+### When To Merge
 To merge you have to complete the DOD and have a repository owner give you the green light by applying the `Ready to Merge` tag.
