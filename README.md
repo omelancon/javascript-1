@@ -503,7 +503,15 @@ const parse = path => compose(parseInt, path)
 ```
 
 ## For, Loops, While, Foreach
-Use [recursion](#Recursion & Tail Call).
+
+Loops are inherently imperative. They also mix concerns: iteration and execution are two different concerns that, if handled separately from each other, result in more flexible code.
+
+Better options include:
+
+* [recursion](#Recursion & Tail Call)
+* map
+* filter
+* reduce
 
 ## Recursion & Tail Call
 To make a tail call recursion you need to place the function call at the end of your function and have it return the value. [see es6-recursion-tail-recursion](http://www.door3.com/insights/es6-recursion-tail-recursion)
