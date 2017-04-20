@@ -508,7 +508,7 @@ Loops are inherently imperative. They also mix concerns: iteration and execution
 
 Better options include:
 
-* [recursion](#Recursion & Tail Call)
+* [recursion](#recursion--tail-call)
 * map
 * filter
 * reduce
