@@ -166,7 +166,7 @@ const splitToKeyValuePair = headerString => {
 const splitToKeyValuePair = compose(combine, fromPairs, map(split('=')), map(trim), split(','))
 ```
 
-## Do Not Program Imperative Functions -- Like Ever!
+## Do Not Program Imperative Functions
 Because you should tell a story by declaring what to do and not how you should avoid imperative functions that tend to tell the computer how to do the thing rather than declare what to do.
 ``` javascript
 // bad
