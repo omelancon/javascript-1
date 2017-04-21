@@ -17,6 +17,8 @@ Directories represent modules in a javascript program, so they should not be org
 ``` javascript
 // bad
 _ src
+├── actions
+|   └── index.js
 ├── components
 |   └── apple.js
 |   └── microsoft.js
@@ -34,10 +36,12 @@ _ src
 // good
 _ src
 ├── apple
+|   └── apple.action.js
 |   └── apple.component.js
 |   └── apple.container.js
 |   └── apple.saga.js
 ├── microsoft
+|   └── microsoft.action.js
 |   └── microsoft.component.js
 |   └── microsoft.container.js
 |   └── microsoft.saga.js
