@@ -24,7 +24,7 @@ These are the values we uphold with this guide and hope that this will help at r
 # React
 We build React the AirBnb way [https://github.com/airbnb/javascript/tree/master/react].
 
-# Functional Programming the good, the bad, and you know what.
+# Functional Programming
 
 ## Style Guide
 This document is a collection of directives to better design code in Functional Javascript. But more directly [next-format](https://www.npmjs.com/package/next-format) is the pretty-printer we chose to enforce the way of laying out our javascript; it replaces the usual linter and rules that are up for interpretations and discussions. All the code must be next-formatted.
