@@ -191,7 +191,7 @@ Control flow should be done through monads.
 const getBody = document => document && document.body ? document.body : undefined
 const getBody = document => document && document.body
 
-// good, a monadic api is more reliable and differs the decisions to the caller
+// good, a monadic api is more reliable and defers the decisions to the caller
 const getBody = document =>
   Either.fromNullable(document)
   .map(d => d.body)
