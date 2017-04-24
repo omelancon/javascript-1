@@ -203,7 +203,7 @@ const getBody = document =>
   .fork(() => 'can\'t get body of null', b => b)
 ```
 
-## Assignations & State Modification
+## Assignments & State Modification
 As a general rule you should avoid assignations at all costs, they alter state and increase the risk of sharing state in code and changing functions parameters.
 ``` javascript
 // bad
