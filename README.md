@@ -47,9 +47,9 @@
   * [This Keyword](#this-keyword)
   * [Function Keyword](#function-keyword)
   * [Arrow Functions : is the default, noop, identity, always](#arrow-functions--is-the-default-noop-identity-always)
-  * [Always](#always)
-  * [Identity](#identity)
-  * [Noop](#noop)
+    + [Always](#always)
+    + [Identity](#identity)
+    + [Noop](#noop)
 
 # Motivation
 The javascript functional programming guide was created to scope what can be done with javascript to promote a functional codebase. At ALDO, we believe that high-level programming language like javascript benefits more from the maintainability of the functional style than an imperative performance focused style.
@@ -638,7 +638,7 @@ You should favor arrow functions over the function keyword.
 ## Arrow Functions : is the default, noop, identity, always
 You should always use array function if you can. It's shorter more concise lambda and does not come with an implicit state but it's lexical context.
 
-## Always
+### Always
 ```javascript
 // bad
 function () { return 'Hello World' }
@@ -647,7 +647,7 @@ function () { return 'Hello World' }
 () => 'Hello World'
 ```
 
-## Identity
+### Identity
 ```javascript
 // bad
 function (a) { return a }
@@ -656,7 +656,7 @@ function (a) { return a }
 a => a
 ```
 
-## Noop
+### Noop
 ```javascript
 // bad
 function () { }
