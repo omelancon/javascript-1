@@ -1,8 +1,56 @@
 # ALDO Javascript Functional Programming Guide
-- [Architecture](/architecture)
-- [Learning](/learning)
-- [Process](/process)
-- [Testing](/testing)
+- [Motivation](#motivation)
+- [Values](#values)
+- [Architecture](#architecture)
+  * [A Note About Reusability](#a-note-about-reusability)
+  * [Separation of concerns based on business requirements](#separation-of-concerns-based-on-business-requirements)
+  * [Utils module and utils folders](#utils-module-and-utils-folders)
+  * [Helpers and utils with business logic](#helpers-and-utils-with-business-logic)
+- [React](#react)
+- [Functional Programming](#functional-programming)
+  * [Style Guide](#style-guide)
+  * [Point-Free Style](#point-free-style)
+  * [Functions Must be Shrinked](#functions-must-be-shrinked)
+  * [Control Flow](#control-flow)
+  * [Asynchronous](#asynchronous)
+  * [Impure Dependencies Must be Composed - Pure Functions](#impure-dependencies-must-be-composed---pure-functions)
+  * [Do Not Share State - Pure Functions](#do-not-share-state---pure-functions)
+  * [Local State Mutation](#local-state-mutation)
+  * [Document Impurity](#document-impurity)
+  * [Single Returns](#single-returns)
+  * [One Input, One Output](#one-input-one-output)
+  * [Split Code Into Composable Functions](#split-code-into-composable-functions)
+  * [Do Not Program Imperative Functions](#do-not-program-imperative-functions)
+  * [Do Not Use `null` & `undefined` for Control Flow](#do-not-use-null--undefined-for-control-flow)
+  * [Assignments & State Modification](#assignments--state-modification)
+  * [Avoid If Expressions](#avoid-if-expressions)
+  * [Prefer Ternary Expression Over || and &&](#prefer-ternary-expression-over--and-)
+  * [Use Ternary Expression to Determine data/functions Rather Than Execution](#use-ternary-expression-to-determine-datafunctions-rather-than-execution)
+  * [Avoid Curly Braces for Code Blocks](#avoid-curly-braces-for-code-blocks)
+  * [Keep Variables Close to Usage](#keep-variables-close-to-usage)
+  * [Regex](#regex)
+  * [Function Type Signature Documentation (Hindley-Milner)](#function-type-signature-documentation-hindley-milner)
+    + [Parentheses in Hindely-Milner](#parentheses-in-hindely-milner)
+  * [Partial Evaluation](#partial-evaluation)
+    + [A Word On Partial Application](#a-word-on-partial-application)
+    + [More Than Just Application](#more-than-just-application)
+    + [Usage](#usage)
+      - [When To Use](#when-to-use)
+      - [When Not To Use](#when-not-to-use)
+  * [Constants](#constants)
+  * [Object Assign](#object-assign)
+  * [Let, Const, Var](#let-const-var)
+  * [Pattern Matching](#pattern-matching)
+  * [For, Loops, While, Foreach](#for-loops-while-foreach)
+  * [Recursion & Tail Call](#recursion--tail-call)
+  * [New Keyword](#new-keyword)
+  * [This Keyword](#this-keyword)
+  * [Function Keyword](#function-keyword)
+  * [Arrow Functions : is the default, noop, identity, always](#arrow-functions--is-the-default-noop-identity-always)
+  * [Always](#always)
+  * [Identity](#identity)
+  * [Noop](#noop)⏎
+
 
 # Motivation
 The javascript functional programming guide was created to scope what can be done with javascript to promote a functional codebase. At ALDO, we believe that high-level programming language like javascript benefits more from the maintainability of the functional style than an imperative performance focused style.
@@ -32,10 +80,10 @@ A module should be in its own file, and all of its sub-modules in the same direc
 
 One could say that a complex javascript program is a collection of modules that could be replaced with a module with the same public interface.
 
-# A Note About Reusability
+## A Note About Reusability
 Opposite to what some people may think, the idea of reusability is not so much a goal but a side effect in functional programming. It's something you attain because you design the components properly, not because you avoid copying every piece of code. We much rather see code, that will never change because it has only one responsibility, be copied over as a private function in another module than to be pushed as a utility or its own module. Moreover, think like this, copy the code first, use unit tests to document the functionality, globalization of the code is the last resort thing.
 
-# Separation of concerns based on business requirements
+## Separation of concerns based on business requirements
 Directories represent modules in a javascript program, so they should not be organized around technical concerns but centric to a business concern and separated as such.
 ``` javascript
 // bad
@@ -71,10 +119,10 @@ _ src
 └── index.html
 ```
 
-# Utils module and utils folders
+## Utils module and utils folders
 Do not use utils folder there you put the non business logic code. This couples the codebase uselessly and increases its own complexity. Rather promote utils to an npm repository. If the usage is common enough to be on npm it could already be there or you will serve the nodejs open source community.
 
-# Helpers and utils with business logic
+## Helpers and utils with business logic
 Do not use the helper naming and concept. A function has only one purpose and its name should represent that. Moreover, it should be private to its module. Although it may cause code duplication, it will decrease complexity by decoupling modules.
 
 # React
@@ -454,7 +502,7 @@ addTwo(5) //=> 7
 
 ### More Than Just Application
 
-Always keep in mind that partial application of a function does not partially evaluate it. All computations, however heavy they may be, are executed only once all arguments have been provided. Partial evaluation is a good way to improve partially applied functions by precomputing as much as possible with the given arguments. 
+Always keep in mind that partial application of a function does not partially evaluate it. All computations, however heavy they may be, are executed only once all arguments have been provided. Partial evaluation is a good way to improve partially applied functions by precomputing as much as possible with the given arguments.
 
 ```
 // This function can be partially applied, but is not partially evaluated
