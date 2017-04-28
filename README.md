@@ -49,8 +49,7 @@
   * [Arrow Functions : is the default, noop, identity, always](#arrow-functions--is-the-default-noop-identity-always)
   * [Always](#always)
   * [Identity](#identity)
-  * [Noop](#noop)⏎
-
+  * [Noop](#noop)
 
 # Motivation
 The javascript functional programming guide was created to scope what can be done with javascript to promote a functional codebase. At ALDO, we believe that high-level programming language like javascript benefits more from the maintainability of the functional style than an imperative performance focused style.
