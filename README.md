@@ -124,13 +124,13 @@ Do not use utils folder there you put the non business logic code. This couples 
 ## Helpers and utils with business logic
 Do not use the helper naming and concept. A function has only one purpose and its name should represent that. Moreover, it should be private to its module. Although it may cause code duplication, it will decrease complexity by decoupling modules.
 
+# Style Guide
+This document is a collection of directives to better design code in Functional Javascript. But more directly [next-format](https://www.npmjs.com/package/next-format) is the pretty-printer we chose to enforce the way of laying out our javascript; it replaces the usual linter and rules that are up for interpretations and discussions. All the code must be next-formatted.
+
 # React
 We build React the AirBnb way [https://github.com/airbnb/javascript/tree/master/react].
 
 # Functional Programming
-
-## Style Guide
-This document is a collection of directives to better design code in Functional Javascript. But more directly [next-format](https://www.npmjs.com/package/next-format) is the pretty-printer we chose to enforce the way of laying out our javascript; it replaces the usual linter and rules that are up for interpretations and discussions. All the code must be next-formatted.
 
 ## Point-Free Style
 You should favor Point-Free Style [(tacit programming)](https://en.wikipedia.org/wiki/Tacit_programming), where you do not name the data you are operating on.
@@ -162,14 +162,95 @@ const makeFoo =
     Either.fromNullable(foo)
       .fold(make)
 ```
-*more examples needed*
+### Examples
+``` javascript
+Id(5)
+  .map(num => num * 7)
+  .map(num => num - 1)
+  .fold(log)
+//=> 34
+```
 
-*Future, Either, Maybe, List*
+``` javascript
+// Maybe of a string
+Maybe('Hello exalted one')
+  .map(sentence => sentence.toUpperString())
+  .map(sentence => `${sentence}!`)
+  .fold(log)
+//=> 'HELLO EXALTED ONE!'
+
+// Maybe of nothing
+Maybe(null)
+  .map(sentence => sentence.toUpperString())
+  .else(() => 'Maybe received a null')
+  .fold(log)
+//=> 'Maybe received a null'
+```
+
+``` javascript
+Either.fromNullable('Hello') // this will return a Right('Hello')
+  .fold(
+    () => 'Oops',
+    val => `${val} world!`)
+//=> 'Hello world!'
+
+Either.fromNullable(null) // this will return a Left(null)
+  .fold(
+    () => 'Oops',
+    val => `${val} world!`)
+//=> 'Oops'
+
+const extractEmail = obj => obj.email ? Right(obj.email) : Left()
+extractEmail({ email: 'test@example.com' }
+  .map(extractDomain)
+  .fold(
+    () => 'No email found!',
+    x => x)
+//=> 'example.com'
+
+extractEmail({ name: 'user' }
+  .map(extractDomain) // this will not get executed
+  .fold(
+    () => 'No email found!',
+    x => x)
+//=> 'No email found!'
+```
+
+``` javascript
+List([2, 4, 6])
+  .map(num => num * 2)
+  .filter(num => num > 5)
+  .fold(log)
+//=> [8, 12]
+```
 
 ## Asynchronous
 Because we favor monadic workflow asynchronous processing should be encapsulated in the `Future` monad.
 
-*needs examples*
+``` javascript
+// Basic usage
+Future((reject, resolve) => resolve('Yay'))
+  .map(res => res.toUpperString())
+  .fork(
+    err => log(`Err: ${err}`),
+    res => log(`Res: ${res}`))
+//=> 'YAY'
+
+// Handle promises
+Future.fromPromise(fetch('https://api.awesome.com/catOfTheDay'))
+  .fork(
+    err => log('There was an error fetching the cat of the day :('),
+    cat => log('Cat of the day: ' + cat))
+//=> 'Cat of the day: Garfield'
+
+// Chain http calls
+Future.fromPromise(fetch('https://api.awesome.com/catOfTheDay'))
+  .chain(cat => Future.fromPromise(fetch(`https://api.catfacts.com/${cat}`)))
+  .fork(
+    err => log('There was an error fetching the cat of the day :('),
+    facts => log('Facts for cat of the day: ' + facts))
+//=> 'Facts for cat of the day: Garfield is awesome.'
+```
 
 ## Impure Dependencies Must be Composed - Pure Functions
 ``` javascript
