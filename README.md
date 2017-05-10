@@ -522,7 +522,73 @@ const curry = f => x => y => f(x, y)
 
 // uncurry :: (Any -> Any -> Any) -> (Any, Any) -> Any
 const uncurry => f => (x, y) =>  f(x)(y)
+
+// returnOne :: () -> Number
+const returnOne = () => 1
 ```
+
+### Notation for Arrays
+
+As seen above, we can use `Array` in function signatures, although this does not indicate the expected type from the elements contained in the array. Thus we consider `Array` to indicate an array with elements of `Any` type.
+
+When a function expects an `Array` with elements of given a type we use the bracket notation.
+
+```
+// sum :: [Number] -> Number
+const sum = numberArray => numberArray.reduce((x, y) => x + y, 0)
+
+// notation for an array of Numbers: [Number]
+// notation for an array of Strings: [String]
+// notation for a two-dimensional array of numbers: [[Number]]
+// notation for an array of any type: [Any] or Array
+```
+
+### Notation for Objects
+
+Notice that the type `Object` is sometimes not meaningful enough since we might require that an object has some specific attribute.
+
+```
+// for a merge function it is accurate to us Object as type
+
+// merge :: Object -> Object -> Object
+const merge = fstObj => sndObj => Object.assign({}, fstObj, sndObj)
+
+// for a function that needs to access a specific attribute of the object, type Object becomes inadequat
+
+// getNameOfObject :: Object -> String
+const getNameOfObject = obj => obj.name
+```
+
+To be more explicit, we combine two strategies. First, we replace `Object` by a name that accurately represents what the object is in the context. Secondly, we favor writing short declarative functions to make required attributes clear.
+
+```
+// bad
+
+// update :: Object -> Object
+const sumOfAccount = obj => {
+  const incomeCollumn = obj.income
+  const expenseCollumn = obj.expense
+  return {
+    income: incomeCollumn,
+    expense: expenseCollumn,
+    balance: incomeCollumn - expenseCollumn
+  }
+}
+
+// good
+
+// sumIncomeAndExpense :: Account -> Number
+const sumIncomeAndExpense = account => account.income - account.expense
+
+// updateAccountBalance :: Account -> Account
+const updateAccountBalance = account => ({
+  ...account,
+  balance: sumIncomeAndExpense(account),
+})
+```
+
+If renaming `Object` is not clear enough in the context, it is possible to add a comment defining the expected structure of the object.
+
 
 ### Parentheses in Hindely-Milner
 Parentheses in Hindley-Milner notation can play three roles, of which only two are mandatory.
@@ -617,7 +683,7 @@ const filterArraysThenConcat = myFilter => firstArray => {
 const myFavouriteNumbers = [1, 2, 3, ..., 999999, 1000000]
 const evenFilter = n => n % 2 === 0
 
-// extendMyArrayOfEvenNumbers :: Array -> Array
+// extendMyArrayOfEvenNumbers :: [Number] -> [Number]
 const extendMyArrayOfEvenNumbers = filterArraysThenConcat(evenFilter)(myFavouriteNumbers)
 
 // This call is way more efficient since the first filter has already been applied
