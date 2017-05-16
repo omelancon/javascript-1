@@ -640,7 +640,33 @@ Partial evaluation is a useful optimization tool when used properly. Its main do
 - Whenever it is not absolutely necessary!
 
 ## Constants
-You should just use magic number and string literals. There is no point in confusing the reader with data are hidden behind variables names, that are likely inappropriate.
+You may use string, boolean or number literals. But if you use constants, they must be close to usage, part of the module that uses them and in no other event and configuration in a different file than where they are used.
+
+``` javascript
+// good
+const userCountReducer = (userCount = 5) => ...
+
+// good
+const USER_DEFAULT_COUNT = 5
+const userCountReducer = (state = USER_DEFAULT_COUNT) => ...
+
+// good
+const USER_DEFAULT_COUNT = 5
+const fromDefaults = ()=>  ({ userCount: USER_DEFAULT_COUNT })
+
+// good
+const fromDefaults = () => ({ userCount: 5 })
+```
+
+### Configurations
+Constants are often used to implement configuration - parameters to the program as a whole that need to be changeable independently of code. In these cases, globality is more reasonable; however you should still try to think of ways to make configuration specific to the module you're working on.
+``` javascript
+// good
+const { USER_DEFAULT_COUNT } = require('./configuration')
+... // a few lines doen but not too far
+const userCountReducer = (state = USER_DEFAULT_COUNT) => ...
+```
+
 ``` javascript
 // bad
 const USER_DEFAULT_COUNT = 5
