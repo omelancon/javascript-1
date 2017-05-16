@@ -1,55 +1,61 @@
 # ALDO Javascript Functional Programming Guide
 - [Motivation](#motivation)
 - [Values](#values)
-- [Architecture](#architecture)
-  * [A Note About Reusability](#a-note-about-reusability)
-  * [Separation of concerns based on business requirements](#separation-of-concerns-based-on-business-requirements)
-  * [Utils module and utils folders](#utils-module-and-utils-folders)
-  * [Helpers and utils with business logic](#helpers-and-utils-with-business-logic)
-- [Style Guide](#style-guide)
-- [React](#react)
-- [Functional Programming](#functional-programming)
-  * [Point-Free Style](#point-free-style)
-  * [Functions Must be Shrinked](#functions-must-be-shrinked)
-  * [Control Flow](#control-flow)
-    + [Examples](#examples)
-  * [Asynchronous](#asynchronous)
-  * [Impure Dependencies Must be Composed - Pure Functions](#impure-dependencies-must-be-composed---pure-functions)
-  * [Do Not Share State - Pure Functions](#do-not-share-state---pure-functions)
-  * [Local State Mutation](#local-state-mutation)
-  * [Document Impurity](#document-impurity)
-  * [Single Returns](#single-returns)
-  * [One Input, One Output](#one-input-one-output)
-  * [Split Code Into Composable Functions](#split-code-into-composable-functions)
-  * [Do Not Program Imperative Functions](#do-not-program-imperative-functions)
-  * [Do Not Use `null` & `undefined` for Control Flow](#do-not-use-null--undefined-for-control-flow)
-  * [Assignments & State Modification](#assignments--state-modification)
-  * [Avoid If Expressions](#avoid-if-expressions)
-  * [Prefer Ternary Expression Over || and &&](#prefer-ternary-expression-over--and-)
-  * [Use Ternary Expression to Determine data/functions Rather Than Execution](#use-ternary-expression-to-determine-datafunctions-rather-than-execution)
-  * [Avoid Curly Braces for Code Blocks](#avoid-curly-braces-for-code-blocks)
-  * [Keep Variables Close to Usage](#keep-variables-close-to-usage)
-  * [Regex](#regex)
-  * [Function Type Signature Documentation (Hindley-Milner)](#function-type-signature-documentation-hindley-milner)
-    + [Parentheses in Hindely-Milner](#parentheses-in-hindely-milner)
-  * [Partial Evaluation](#partial-evaluation)
-    + [A Word On Partial Application](#a-word-on-partial-application)
-    + [More Than Just Application](#more-than-just-application)
-    + [Usage](#usage)
-  * [Constants](#constants)
-  * [Object Assign](#object-assign)
-  * [Let, Const, Var](#let-const-var)
-  * [Pattern Matching](#pattern-matching)
-  * [For, Loops, While, Foreach](#for-loops-while-foreach)
-  * [Recursion & Tail Call](#recursion--tail-call)
-  * [New Keyword](#new-keyword)
-  * [This Keyword](#this-keyword)
-  * [Function Declarations](#function-declarations)
-  * [Function Keyword](#function-keyword)
-  * [Arrow Functions : is the default, noop, identity, always](#arrow-functions--is-the-default-noop-identity-always)
+- [1.0 Architecture](#10-architecture)
+  * [1.1 A Note About Reusability](#11-a-note-about-reusability)
+  * [1.2 Separation of concerns based on business requirements](#12-separation-of-concerns-based-on-business-requirements)
+  * [1.3 Utils module and utils folders](#13-utils-module-and-utils-folders)
+  * [1.4 Helpers and utils with business logic](#14-helpers-and-utils-with-business-logic)
+- [2.0 React](#20-react)
+- [3.0 Style Guide](#30-style-guide)
+  * [3.1 Point-Free Style](#31-point-free-style)
+  * [3.2 One Input, One Output](#32-one-input-one-output)
+  * [3.3 Single Returns](#33-single-returns)
+  * [3.4 Function Declarations](#34-function-declarations)
+  * [3.5 Function Keyword](#35-function-keyword)
+  * [3.6 Arrow Functions : is the default, noop, identity, always](#36-arrow-functions--is-the-default-noop-identity-always)
     + [Always](#always)
     + [Identity](#identity)
     + [Noop](#noop)
+  * [3.7 Variable Declaration](#37-variable-declaration)
+  * [3.8 Destructuring](#38-destructuring)
+  * [3.9 Document Impurity](#39-document-impurity)
+  * [3.10 Avoid Curly Braces for Code Blocks](#310-avoid-curly-braces-for-code-blocks)
+  * [3.11 Keep Variables Close to Usage](#311-keep-variables-close-to-usage)
+  * [3.12 Regex](#312-regex)
+- [4.0 Control Flow](#40-control-flow)
+  * [4.1 Monads](#41-monads)
+    + [Examples](#examples)
+  * [4.2 Do Not Use `null` & `undefined` for Control Flow](#42-do-not-use-null--undefined-for-control-flow)
+  * [4.3 Asynchronous](#43-asynchronous)
+  * [4.4 Avoid If Expressions](#44-avoid-if-expressions)
+  * [4.5 Prefer Ternary Expression Over || and &&](#45-prefer-ternary-expression-over--and-)
+  * [4.6 Use Ternary Expression to Determine data/functions Rather Than Execution](#46-use-ternary-expression-to-determine-datafunctions-rather-than-execution)
+- [5.0 Composable Functions](#50-composable-functions)
+  * [5.1 Impure Dependencies Must be Composed - Pure Functions](#51-impure-dependencies-must-be-composed---pure-functions)
+- [6.0 Declarative Programming](#60-declarative-programming)
+  * [6.1 Program Devlarative Functions](#61-program-devlarative-functions)
+  * [6.2 Split Code Into Composable Functions](#62-split-code-into-composable-functions)
+- [7.0 State & Function Purity](#70-state--function-purity)
+  * [7.1 Assignments & State Modification](#71-assignments--state-modification)
+  * [7.2 Object Assign](#72-object-assign)
+  * [7.3 Do Not Share State](#73-do-not-share-state)
+  * [7.4 Local State Mutation](#74-local-state-mutation)
+  * [7.4 New Keyword](#74-new-keyword)
+  * [7.5 This Keyword](#75-this-keyword)
+- [8.0 Loops](#80-loops)
+  * [8.1 For, While, Foreach](#81-for-while-foreach)
+  * [8.2 Recursion & Tail Call](#82-recursion--tail-call)
+- [9.0 Function Type Signature Documentation (Hindley-Milner)](#90-function-type-signature-documentation-hindley-milner)
+  * [9.1 Parentheses in Hindely-Milner](#91-parentheses-in-hindely-milner)
+- [10.0 Partial Evaluation](#100-partial-evaluation)
+  * [10.1 A Word On Partial Application](#101-a-word-on-partial-application)
+  * [10.1 More Than Just Application](#101-more-than-just-application)
+  * [10.2 Usage](#102-usage)
+    + [When To Use](#when-to-use)
+    + [When Not To Use](#when-not-to-use)
+- [11.0 Constants](#110-constants)
+  * [11.1 Configurations](#111-configurations)
 
 # Motivation
 The javascript functional programming guide was created to scope what can be done with javascript to promote a functional codebase. At ALDO, we believe that high-level programming language like javascript benefits more from the maintainability of the functional style than an imperative performance focused style.
@@ -68,7 +74,7 @@ These are the values we uphold with this guide and hope that this will help at r
 - Everything must be composable
 - Monads for control flow
 
-# Architecture
+# 1.0 Architecture
 A well architectured' javascript program is done through the module architectural pattern. Which decouple modules (components) and expose composable interfaces. Therefore it is paramount to properly apply the module pattern.
 
 So what is a module? It is a self-contained program, that takes an input and return an output. This program can be pure or impure. But a pure program cannot receive an impure input. So expect inputs to be data. This program can have any umber of private function to achieve its goal. But as a general idea, it should have only one interface -- one export.
@@ -79,10 +85,10 @@ A module should be in its own file, and all of its sub-modules in the same direc
 
 One could say that a complex javascript program is a collection of modules that could be replaced with a module with the same public interface.
 
-## A Note About Reusability
+## 1.1 A Note About Reusability
 Opposite to what some people may think, the idea of reusability is not so much a goal but a side effect in functional programming. It's something you attain because you design the components properly, not because you avoid copying every piece of code. We much rather see code, that will never change because it has only one responsibility, be copied over as a private function in another module than to be pushed as a utility or its own module. Moreover, think like this, copy the code first, use unit tests to document the functionality, globalization of the code is the last resort thing.
 
-## Separation of concerns based on business requirements
+## 1.2 Separation of concerns based on business requirements
 Directories represent modules in a javascript program, so they should not be organized around technical concerns but centric to a business concern and separated as such.
 ``` javascript
 // bad
@@ -118,21 +124,19 @@ _ src
 └── index.html
 ```
 
-## Utils module and utils folders
+## 1.3 Utils module and utils folders
 Do not use utils folder there you put the non business logic code. This couples the codebase uselessly and increases its own complexity. Rather promote utils to an npm repository. If the usage is common enough to be on npm it could already be there or you will serve the nodejs open source community.
 
-## Helpers and utils with business logic
+## 1.4 Helpers and utils with business logic
 Do not use the helper naming and concept. A function has only one purpose and its name should represent that. Moreover, it should be private to its module. Although it may cause code duplication, it will decrease complexity by decoupling modules.
 
-# Style Guide
-This document is a collection of directives to better design code in Functional Javascript. But more directly [next-format](https://www.npmjs.com/package/next-format) is the pretty-printer we chose to enforce the way of laying out our javascript; it replaces the usual linter and rules that are up for interpretations and discussions. All the code must be next-formatted.
-
-# React
+# 2.0 React
 We build React the AirBnb way [https://github.com/airbnb/javascript/tree/master/react].
 
-# Functional Programming
+# 3.0 Style Guide
+This document is a collection of directives to better design code in Functional Javascript. But more directly [next-format](https://www.npmjs.com/package/next-format) is the pretty-printer we chose to enforce the way of laying out our javascript; it replaces the usual linter and rules that are up for interpretations and discussions. All the code must be next-formatted.
 
-## Point-Free Style
+## 3.1 Point-Free Style
 You should favor Point-Free Style [(tacit programming)](https://en.wikipedia.org/wiki/Tacit_programming), where you do not name the data you are operating on.
 ``` javascript
 // bad
@@ -142,11 +146,183 @@ const do = shoe => selectDiscount(selectPriceObject(shoe))
 const do = compose(selectDiscount, selectPriceObject)
 ```
 
-## Functions Must be Shrinked
-You should shrink the function to their simplest composable representation.
- *needs examples*
+## 3.2 One Input, One Output
+``` javascript
+// bad
+const add = (a, b) => a + b
 
-## Control Flow
+const foo = (a, b, c, d, e) => (/* ... */)
+const foo = a => b => c => d => e => (/* ... */)
+
+// ok
+const add = ({a, b}) => a + b
+const add = ([a, b]) => a + b
+
+// best
+const add = a => b => a + b
+```
+
+## 3.3 Single Returns
+``` javascript
+// bad
+const foo = a => {
+  if (!a){
+    return bar(0)
+  }
+  return bar(a)
+}
+
+// ok
+const foo = a => bar(a ? a : 0)
+
+// best
+const foo (a = 0) =>  bar(a)
+```
+
+## 3.4 Function Declarations
+You should avoid function declaration and use function expression.
+``` javascript
+// bad
+function do() { ... }
+
+// good
+const do = () => ...
+
+// generators
+// bad
+function* do() { ... }
+
+// good
+const do = function* () { ... }
+```
+
+## 3.5 Function Keyword
+You should favor arrow functions over the function keyword.
+``` javascript
+// bad
+const do = function() { ... }
+
+// good
+const do = () => ...
+```
+
+## 3.6 Arrow Functions : is the default, noop, identity, always
+You should always use array function if you can. It's shorter more concise lambda and does not come with an implicit state but it's lexical context.
+
+### Always
+```javascript
+// bad
+function () { return 'Hello World' }
+
+// good
+() => 'Hello World'
+```
+
+### Identity
+```javascript
+// bad
+function (a) { return a }
+
+// good
+a => a
+```
+
+### Noop
+```javascript
+// bad
+function () { }
+
+// good
+() => { }
+```
+
+## 3.7 Variable Declaration
+There can be just one: `const`. You should never use `var` and avoid at all cost `let`.
+
+## 3.8 Destructuring
+Although destructuring is a cool tool in es6, it binds the function to the json structure.
+``` javascript
+// bad
+const parse = ({ a : { b } }) =>
+  Id(b).map(parseInt).fold(a => a)
+
+// good
+const parse = path => data =>
+  Id(data).map(path).map(parseInt).fold(a => a)
+
+// best
+const parse = path => compose(parseInt, path)
+```
+
+## 3.9 Document Impurity
+Impure functions or impure function groups must be commented with `IMPURE` the same can be done for pure functions `PURE`.
+``` javascript
+// PURE
+const upper = a => s.toUpperCase()
+const selectBody = res => res.body
+
+// IMPURE
+const requestBodyToUpperCase = compose(upper, selectBody, getHttp)
+```
+
+## 3.10 Avoid Curly Braces for Code Blocks
+Clutter, they are just clutter. You better use sequences. If you need curly braces, your function is probably too big, has multiple concerns or is not built properly.
+``` javascript
+// bad
+const incremnt = a => {
+  return a + 1
+}
+
+// bad
+const make = flower => color => {
+  flower(color)
+  return color
+}
+
+// good
+const incremnt = a => a + 1
+
+// good
+const make = flower => color => (flower(color), color)
+```
+
+## 3.11 Keep Variables Close to Usage
+Keep variables closer to usage, inside function block if possible and just prefer using string literals.
+``` javascript
+// bad
+const INC = 2
+...
+const increment = a => a + INC
+
+// bad
+const indcremnt = a => {
+  const INC = 2
+  return a + INC
+}
+
+// good
+const indcremntBy2 = a =>  a + 2
+```
+
+## 3.12 Regex
+Because a regex is a business case, you should use it as a string literal inside a function that does just that.
+Avoid the `new Regex` construct.
+``` javascript
+// bad
+const TRIM_END = /[ ]+$/
+...
+const trim = str => str.trim(TRIM_END)
+
+// bad
+const trim = str => str.trim(new Regex(/[ ]+$/)))
+
+// good
+const trim = str => str.trim(/[ ]+$/)
+```
+
+# 4.0 Control Flow
+
+## 4.1 Monads
 You should use monads for control flow.
 ``` javascript
 // bad
@@ -224,7 +400,26 @@ List([2, 4, 6])
 //=> [8, 12]
 ```
 
-## Asynchronous
+## 4.2 Do Not Use `null` & `undefined` for Control Flow
+Control flow should be done through monads.
+``` javascript
+// bad
+const getBody = document => document && document.body ? document.body : undefined
+const getBody = document => document && document.body
+
+// good, a monadic api is more reliable and defers the decisions to the caller
+const getBody = document =>
+  Either.fromNullable(document)
+  .map(d => d.body)
+
+// good
+const getBody = document =>
+  Either.fromNullable(document)
+  .map(d => d.body)
+  .fork(() => 'can\'t get body of null', b => b)
+```
+
+## 4.3 Asynchronous
 Because we favor monadic workflow asynchronous processing should be encapsulated in the `Future` monad.
 
 ``` javascript
@@ -252,7 +447,45 @@ Future.fromPromise(fetch('https://api.awesome.com/catOfTheDay'))
 //=> 'Facts for cat of the day: Garfield is awesome.'
 ```
 
-## Impure Dependencies Must be Composed - Pure Functions
+## 4.4 Avoid If Expressions
+Do not use if expression, they influence imperative programming.
+``` javascript
+// bad
+(foo) => {
+  if (foo) {
+    return bar
+  }
+  return baz
+}
+
+// good
+(foo) => foo ? bar : baz
+```
+
+## 4.5 Prefer Ternary Expression Over || and &&
+Prefer the usage of ternary expression where you are explicit of the else condition.
+``` javascript
+// ok
+(foo) => foo && bar || 0
+
+// good
+(foo) => foo ? bar : { baz: true }
+(foo) => foo ? baz : 0
+```
+
+## 4.6 Use Ternary Expression to Determine data/functions Rather Than Execution
+``` javascript
+// bad
+const foo = data => make => make2 => contition => contition ? make(data) : make2(data)
+
+// good
+const foo = make => make2 => contition => contition ? make : make2
+foo(make)(make2)(contdition)(data)
+```
+
+# 5.0 Composable Functions
+
+## 5.1 Impure Dependencies Must be Composed - Pure Functions
 ``` javascript
 // bad
 const readFileBody = filePath => {
@@ -266,91 +499,8 @@ const getBody = document => document.body
 const readFileBody = compose(getBody, JSON.parse, readFileSync)
 ```
 
-## Do Not Share State - Pure Functions
-``` javascript
-// bad
-const inc = () => state.count++
-
-// good
-const inc = (state = { count: 0 }) => ({ count : state.count + 1 })
-```
-
-## Local State Mutation
-You should try to avoid mutating local state. The inconvenience with doing it is that you might inadvertently cause a side effect by mutating a function parameter.
-``` javascript
-// bad
-const fiftyPercentDiscount = shoe => {
-  shoe.price + shoeVariant.price / 2
-  return shoe
-}
-
-// good
-const fiftyPercentDiscount = shoe => ({ ...shoe, price: shoe.price / 2 })
-```
-
-## Document Impurity
-Impure functions or impure function groups must be commented with `IMPURE` the same can be done for pure functions `PURE`.
-``` javascript
-// PURE
-const upper = a => s.toUpperCase()
-const selectBody = res => res.body
-
-// IMPURE
-const requestBodyToUpperCase = compose(upper, selectBody, getHttp)
-```
-
-## Single Returns
-``` javascript
-// bad
-const foo = a => {
-  if (!a){
-    return bar(0)
-  }
-  return bar(a)
-}
-
-// ok
-const foo = a => bar(a ? a : 0)
-
-// best
-const foo (a = 0) =>  bar(a)
-```
-
-## One Input, One Output
-``` javascript
-// bad
-const add = (a, b) => a + b
-
-const foo = (a, b, c, d, e) => (/* ... */)
-const foo = a => b => c => d => e => (/* ... */)
-
-// ok
-const add = ({a, b}) => a + b
-const add = ([a, b]) => a + b
-
-// best
-const add = a => b => a + b
-```
-
-## Split Code Into Composable Functions
-``` javascript
-// bad
-const splitToKeyValuePair = headerString => {
-  return headerString.split(',')
-    .reduce((result, current) => {
-      const keyValuePair = current.split('=')
-      const key = keyValuePair[0]
-      const value = keyValuePair[1]
-      result[key] = value
-      return result
-    }, {})
-}
-
-// good
-const splitToKeyValuePair = compose(combine, fromPairs, map(split('=')), map(trim), split(','))
-```
-
-## Do Not Program Imperative Functions
+# 6.0 Declarative Programming
+## 6.1 Program Devlarative Functions
 Because you should tell a story by declaring what to do and not how you should avoid imperative functions that tend to tell the computer how to do the thing rather than declare what to do.
 ``` javascript
 // bad
@@ -368,27 +518,27 @@ function fromPairs(pairs) {
 const fromPairs = compose(combine, map(([key, value]) => ({ [key]: value })))
 ```
 
-## Do Not Use `null` & `undefined` for Control Flow
-Control flow should be done through monads.
+## 6.2 Split Code Into Composable Functions
 ``` javascript
 // bad
-const getBody = document => document && document.body ? document.body : undefined
-const getBody = document => document && document.body
-
-// good, a monadic api is more reliable and defers the decisions to the caller
-const getBody = document =>
-  Either.fromNullable(document)
-  .map(d => d.body)
+const splitToKeyValuePair = headerString => {
+  return headerString.split(',')
+    .reduce((result, current) => {
+      const keyValuePair = current.split('=')
+      const key = keyValuePair[0]
+      const value = keyValuePair[1]
+      result[key] = value
+      return result
+    }, {})
+}
 
 // good
-const getBody = document =>
-  Either.fromNullable(document)
-  .map(d => d.body)
-  .fork(() => 'can\'t get body of null', b => b)
+const splitToKeyValuePair = compose(combine, fromPairs, map(split('=')), map(trim), split(','))
 ```
 
-## Assignments & State Modification
-As a general rule you should avoid assignations at all costs, they alter state and increase the risk of sharing state in code and changing functions parameters.
+# 7.0 State & Function Purity
+## 7.1 Assignments & State Modification
+As a general rule you should avoid assignments at all costs, they alter state and increase the risk of sharing state in code and changing functions parameters.
 ``` javascript
 // bad
 const foo = state => {
@@ -403,98 +553,72 @@ const foo = state => object.assign({}, state, { count: state.count + 1 })
 const foo = state => ({ ...state, count: state.count + 1 })
 ```
 
-## Avoid If Expressions
-Do not use if expression, they influence imperative programming.
+## 7.2 Object Assign
+Use `Object.assign` to avoid mutating state.
 ``` javascript
 // bad
-(foo) => {
-  if (foo) {
-    return bar
-  }
-  return baz
+const state => {
+  state.id = 1
+  return state
 }
 
 // good
-(foo) => foo ? bar : baz
+const state => Object.assign({}, state, { id : 1 }) // native js
+
+const state => ({ ...state, id : 1 }) // es6 syntax
 ```
 
-## Prefer Ternary Expression Over || and &&
-Prefer the usage of ternary expression where you are explicit of the else condition.
+## 7.3 Do Not Share State
 ``` javascript
-// ok
-(foo) => foo && bar || 0
+// bad
+const inc = () => state.count++
 
 // good
-(foo) => foo ? bar : { baz: true }
-(foo) => foo ? baz : 0
+const inc = (state = { count: 0 }) => ({ count : state.count + 1 })
 ```
 
-## Use Ternary Expression to Determine data/functions Rather Than Execution
+## 7.4 Local State Mutation
+You should try to avoid mutating local state. The inconvenience with doing it is that you might inadvertently cause a side effect by mutating a function parameter.
 ``` javascript
 // bad
-const foo = data => make => make2 => contition => contition ? make(data) : make2(data)
-
-// good
-const foo = make => make2 => contition => contition ? make : make2
-foo(make)(make2)(contdition)(data)
-```
-
-## Avoid Curly Braces for Code Blocks
-Clutter, they are just clutter. You better use sequences. If you need curly braces, your function is probably too big, has multiple concerns or is not built properly.
-``` javascript
-// bad
-const incremnt = a => {
-  return a + 1
-}
-
-// bad
-const make = flower => color => {
-  flower(color)
-  return color
+const fiftyPercentDiscount = shoe => {
+  shoe.price + shoeVariant.price / 2
+  return shoe
 }
 
 // good
-const incremnt = a => a + 1
-
-// good
-const make = flower => color => (flower(color), color)
+const fiftyPercentDiscount = shoe => ({ ...shoe, price: shoe.price / 2 })
 ```
 
-## Keep Variables Close to Usage
-Keep variables closer to usage, inside function block if possible and just prefer using string literals.
+## 7.4 New Keyword
+Never use the new keyword.
+
+## 7.5 This Keyword
+Because we code pure function and avoid shared state we must not use the `this` keyword, ever.
+
+# 8.0 Loops
+
+## 8.1 For, While, Foreach
+Loops are inherently imperative. They also mix concerns: iteration and execution are two different concerns that, if handled separately from each other, result in more flexible code.
+
+Better options include:
+
+* [recursion](#recursion--tail-call)
+* map
+* filter
+* reduce
+
+## 8.2 Recursion & Tail Call
+To make a tail call recursion you need to place the function call at the end of your function and have it return the value. [see es6-recursion-tail-recursion](http://www.door3.com/insights/es6-recursion-tail-recursion)
 ``` javascript
-// bad
-const INC = 2
-...
-const increment = a => a + INC
+// recur :: Number -> Number -> Number
+const recur = n => acc =>  n == 0 ? acc : recur(n-1)(n * acc)
 
-// bad
-const indcremnt = a => {
-  const INC = 2
-  return a + INC
-}
-
-// good
-const indcremntBy2 = a =>  a + 2
+// recur :: Number -> Number
+const factorial = (n) => recur(n)(1)
 ```
 
-## Regex
-Because a regex is a business case, you should use it as a string literal inside a function that does just that.
-Avoid the `new Regex` construct.
-``` javascript
-// bad
-const TRIM_END = /[ ]+$/
-...
-const trim = str => str.trim(TRIM_END)
-
-// bad
-const trim = str => str.trim(new Regex(/[ ]+$/)))
-
-// good
-const trim = str => str.trim(/[ ]+$/)
-```
-
-## Function Type Signature Documentation (Hindley-Milner)
+# 9.0 Function Type Signature Documentation (Hindley-Milner)
 You should document all functions with Hindley-Milner annotation, it is the prevalent type signature documentation in functional languages (Haskell, Elm, OCaml, etc.) and it just makes a lot of sense to use it in functional Javascript.
 ```
 // functionName :: type -> type -> type
@@ -524,7 +648,7 @@ const curry = f => x => y => f(x, y)
 const uncurry => f => (x, y) =>  f(x)(y)
 ```
 
-### Parentheses in Hindely-Milner
+## 9.1 Parentheses in Hindely-Milner
 Parentheses in Hindley-Milner notation can play three roles, of which only two are mandatory.
 
 First of all, parentheses will denote tuples of arguments for uncurried functions. Arguments as tuples indicate that the function cannot be partially applied. In functional Javascript, you generally want to avoid uncurried functions.
@@ -537,7 +661,6 @@ const uncurriedAdd = (x, y) -> x + y
 uncurriedAdd(1)
 ```
 
-
 A common use of parentheses is also to enclose functions, i.e. to state that the argument you expect is a function with the given enclosed signature.
 
 ```
@@ -547,7 +670,6 @@ A common use of parentheses is also to enclose functions, i.e. to state that the
 // apply :: (Any -> Any) -> Any -> Any
 const apply = f => x => f(x)
 ```
-
 
 Finally, while this final case is optional, parentheses can be used to encourage the user to partially apply a function. Indeed some functions such as `curry` are rarely, if ever, fully evaluated.
 
@@ -562,9 +684,9 @@ const curry = f => x => y => f(x, y)
 // The end parentheses are optional since Any -> Any -> Any is equivalent to (Any -> Any -> Any)
 ```
 
-## Partial Evaluation
+# 10.0 Partial Evaluation
 
-### A Word On Partial Application
+## 10.1 A Word On Partial Application
 
 Partial application is when you give some of its arguments to a function to return a function that takes fewer arguments. The process of making a function partially applicable is also referred as currying.
 
@@ -580,7 +702,7 @@ const addTwo = add(2)
 addTwo(5) //=> 7
 ```
 
-### More Than Just Application
+## 10.1 More Than Just Application
 
 Always keep in mind that partial application of a function does not partially evaluate it. All computations, however heavy they may be, are executed only once all arguments have been provided. Partial evaluation is a good way to improve partially applied functions by precomputing as much as possible with the given arguments.
 
@@ -624,22 +746,23 @@ const extendMyArrayOfEvenNumbers = filterArraysThenConcat(evenFilter)(myFavourit
 extendMyArrayOfEvenNumbers([-1, -2, -3])
 ```
 
-### Usage
+## 10.2 Usage
 
 Partial evaluation is a useful optimization tool when used properly. Its main downside is readability, observe that we had to break our [rule about curly braces](https://github.com/aldo-dev/javascript#avoid-curly-braces-for-code-blocks) in the process. For that reason it should not be systematically used.
 
-#### When To Use
+### When To Use
 
 - Partially applied functions that you intend to reuse a lot
 - Partially applied functions which execution can be arbitrarily long (ex: operations on huge Arrays)
 
-#### When Not To Use
+### When Not To Use
 
 - When readability becomes an issue, maybe write smaller composable functions
 - Never use partial evaluation for impure functions
 - Whenever it is not absolutely necessary!
 
-## Constants
+
+# 11.0 Constants
 You may use string, boolean or number literals. But if you use constants, they must be close to usage, part of the module that uses them and in no other event and configuration in a different file than where they are used.
 
 ``` javascript
@@ -658,7 +781,7 @@ const fromDefaults = ()=>  ({ userCount: USER_DEFAULT_COUNT })
 const fromDefaults = () => ({ userCount: 5 })
 ```
 
-### Configurations
+## 11.1 Configurations
 Constants are often used to implement configuration - parameters to the program as a whole that need to be changeable independently of code. In these cases, globality is more reasonable; however you should still try to think of ways to make configuration specific to the module you're working on.
 ``` javascript
 // good
@@ -675,123 +798,4 @@ const reducer = (state = USER_DEFAULT_COUNT) => ... // you just can't know that 
 
 // good
 const reducer = (state = 5) => ...
-```
-
-## Object Assign
-Use `Object.assign` to avoid mutating state.
-``` javascript
-// bad
-const state => {
-  state.id = 1
-  return state
-}
-
-// good
-const state => Object.assign({}, state, { id : 1 }) // native js
-
-const state => assign(state, { id : 1 }) // oncha api
-
-const state => ({ ...state, id : 1 }) // es6 syntax
-```
-
-## Let, Const, Var
-There can be just one: `const`. you should never use `var` and avoid at all cost `let`.
-
-## Pattern Matching
-Although pattern matching or destructuring is a cool tool in es6, it binds the function to the json structure.
-``` javascript
-// bad
-const parse = ({ a : { b } }) =>
-  Id(b).map(parseInt).fold(a => a)
-
-// good
-const parse = path => data =>
-  Id(data).map(path).map(parseInt).fold(a => a)
-
-// best
-const parse = path => compose(parseInt, path)
-```
-
-## For, Loops, While, Foreach
-
-Loops are inherently imperative. They also mix concerns: iteration and execution are two different concerns that, if handled separately from each other, result in more flexible code.
-
-Better options include:
-
-* [recursion](#recursion--tail-call)
-* map
-* filter
-* reduce
-
-## Recursion & Tail Call
-To make a tail call recursion you need to place the function call at the end of your function and have it return the value. [see es6-recursion-tail-recursion](http://www.door3.com/insights/es6-recursion-tail-recursion)
-``` javascript
-// recur :: Number -> Number -> Number
-const recur = n => acc =>  n == 0 ? acc : recur(n-1)(n * acc)
-
-// recur :: Number -> Number
-const factorial = (n) => recur(n)(1)
-```
-
-## New Keyword
-Never use the new keyword.
-
-## This Keyword
-Because we code pure function and avoid shared state we must not use the `this` keyword, ever.
-
-## Function Declarations
-You should avoid function declaration and use function expression.
-``` javascript
-// bad
-function do() { ... }
-
-// good
-const do = () => ...
-
-// generators
-// bad
-function* do() { ... }
-
-// good
-const do = function* () { ... }
-```
-
-## Function Keyword
-You should favor arrow functions over the function keyword.
-``` javascript
-// bad
-const do = function() { ... }
-
-// good
-const do = () => ...
-```
-
-## Arrow Functions : is the default, noop, identity, always
-You should always use array function if you can. It's shorter more concise lambda and does not come with an implicit state but it's lexical context.
-
-### Always
-```javascript
-// bad
-function () { return 'Hello World' }
-
-// good
-() => 'Hello World'
-```
-
-### Identity
-```javascript
-// bad
-function (a) { return a }
-
-// good
-a => a
-```
-
-### Noop
-```javascript
-// bad
-function () { }
-
-// good
-() => { }
 ```
