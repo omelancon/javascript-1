@@ -6,12 +6,13 @@
   * [Separation of concerns based on business requirements](#separation-of-concerns-based-on-business-requirements)
   * [Utils module and utils folders](#utils-module-and-utils-folders)
   * [Helpers and utils with business logic](#helpers-and-utils-with-business-logic)
+- [Style Guide](#style-guide)
 - [React](#react)
 - [Functional Programming](#functional-programming)
-  * [Style Guide](#style-guide)
   * [Point-Free Style](#point-free-style)
   * [Functions Must be Shrinked](#functions-must-be-shrinked)
   * [Control Flow](#control-flow)
+    + [Examples](#examples)
   * [Asynchronous](#asynchronous)
   * [Impure Dependencies Must be Composed - Pure Functions](#impure-dependencies-must-be-composed---pure-functions)
   * [Do Not Share State - Pure Functions](#do-not-share-state---pure-functions)
@@ -35,8 +36,6 @@
     + [A Word On Partial Application](#a-word-on-partial-application)
     + [More Than Just Application](#more-than-just-application)
     + [Usage](#usage)
-      - [When To Use](#when-to-use)
-      - [When Not To Use](#when-not-to-use)
   * [Constants](#constants)
   * [Object Assign](#object-assign)
   * [Let, Const, Var](#let-const-var)
@@ -45,6 +44,7 @@
   * [Recursion & Tail Call](#recursion--tail-call)
   * [New Keyword](#new-keyword)
   * [This Keyword](#this-keyword)
+  * [Function Declarations](#function-declarations)
   * [Function Keyword](#function-keyword)
   * [Arrow Functions : is the default, noop, identity, always](#arrow-functions--is-the-default-noop-identity-always)
     + [Always](#always)
@@ -713,8 +713,32 @@ Never use the new keyword.
 ## This Keyword
 Because we code pure function and avoid shared state we must not use the `this` keyword, ever.
 
+## Function Declarations
+You should avoid function declaration and use function expression.
+``` javascript
+// bad
+function do() { ... }
+
+// good
+const do = () => ...
+
+// generators
+// bad
+function* do() { ... }
+
+// good
+const do = function* () { ... }
+```
+
 ## Function Keyword
 You should favor arrow functions over the function keyword.
+``` javascript
+// bad
+const do = function() { ... }
+
+// good
+const do = () => ...
+```
 
 ## Arrow Functions : is the default, noop, identity, always
 You should always use array function if you can. It's shorter more concise lambda and does not come with an implicit state but it's lexical context.
