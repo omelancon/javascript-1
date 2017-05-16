@@ -551,7 +551,7 @@ Notice that the type `Object` is sometimes not meaningful enough since we might 
 // for a merge function it is accurate to us Object as type
 
 // merge :: Object -> Object -> Object
-const merge = fstObj => sndObj => Object.assign({}, fstObj, sndObj)
+const merge = x => y => Object.assign({}, x, y)
 
 // for a function that needs to access a specific attribute of the object, type Object becomes inadequat
 
