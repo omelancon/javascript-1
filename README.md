@@ -565,7 +565,7 @@ To be more explicit, we combine two strategies. First, we replace `Object` by a 
 // bad
 
 // update :: Object -> Object
-const sumOfAccount = obj => {
+const update = obj => {
   const incomeCollumn = obj.income
   const expenseCollumn = obj.expense
   return {
