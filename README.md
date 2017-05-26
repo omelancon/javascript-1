@@ -555,39 +555,48 @@ const merge = x => y => Object.assign({}, x, y)
 
 // for a function that needs to access a specific attribute of the object, type Object becomes inadequat
 
-// getNameOfObject :: Object -> String
-const getNameOfObject = obj => obj.name
+// selectPersonName :: Object -> String
+const selectPersonName = obj => obj.name
 ```
 
-To be more explicit, we combine two strategies. First, we replace `Object` by a name that accurately represents what the object is in the context. Secondly, we favor writing short declarative functions to make required attributes clear.
+To be more explicit, we replace `Object` by a name that accurately represents what the object is in the context.
+
+```
+// bad
+// update :: Object -> Object
+ const selectAccountSummary = a => ({
+    income: a.income,
+    expense: a.expense,
+    balance: a.income - a.expense
+ })
+
+// good
+// update :: Account -> AccountSummary
+ const selectAccountSummary = a => ({
+    income: a.income,
+    expense: a.expense,
+    balance: a.income - a.expense
+ })
+```
+
+If renaming `Object` is not clear enough in the context, it is possible to add a comment defining the expected structure of the object.
+
+#### Caveat
+
+The purpose of renaming the `Object` type is to give information about its structure and the attributes it contains. It should not be done to define what the object represents. Thus, renaming should not be used for types other than `Object` because their structure is already clear. Furthermore renaming non-object types can create confusion.
 
 ```
 // bad
 
-// update :: Object -> Object
-const update = obj => {
-  const incomeCollumn = obj.income
-  const expenseCollumn = obj.expense
-  return {
-    income: incomeCollumn,
-    expense: expenseCollumn,
-    balance: incomeCollumn - expenseCollumn
-  }
-}
+// Here, renaming Number to Price may lead to thing Price is an Object and not a Number
+
+// priceToString :: Price -> Price as String
+const priceToString = price => price + '$'
 
 // good
-
-// sumIncomeAndExpense :: Account -> Number
-const sumIncomeAndExpense = account => account.income - account.expense
-
-// updateAccountBalance :: Account -> Account
-const updateAccountBalance = account => ({
-  ...account,
-  balance: sumIncomeAndExpense(account),
-})
+// priceToString :: Number -> String
+const priceToString = price => price + '$'
 ```
-
-If renaming `Object` is not clear enough in the context, it is possible to add a comment defining the expected structure of the object.
 
 
 ### Parentheses in Hindely-Milner
