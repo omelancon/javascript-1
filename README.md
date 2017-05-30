@@ -200,7 +200,7 @@ const foo = function* () { ... }
 async function foo () { ... }
 
 // good
-const foo = async () { ... }
+const foo = async function () { ... }
 ```
 
 ## 3.5 Function Keyword
