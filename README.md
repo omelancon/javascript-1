@@ -559,7 +559,7 @@ const merge = x => y => Object.assign({}, x, y)
 const selectPersonName = obj => obj.name
 ```
 
-To be more explicit, we replace `Object` by a name that accurately represents what the object is in the context.
+To be more explicit, we replace `Object` by a name that accurately represents what the object structure is expected to be.
 
 ```
 // bad
@@ -583,12 +583,12 @@ If renaming `Object` is not clear enough in the context, it is possible to add a
 
 #### Caveat
 
-The purpose of renaming the `Object` type is to give information about its structure and the attributes it contains. It should not be done to define what the object represents. Thus, renaming should not be used for types other than `Object` because their structure is already clear. Furthermore renaming non-object types can create confusion.
+The purpose of renaming the `Object` type is to give information about its structure and the attributes it contains. It should not be done to define what the object represents. Thus, renaming should not be used for types other than `Object`, because their structure is already well-defined. Furthermore renaming non-object types can create confusion.
 
 ```
 // bad
 
-// Here, renaming Number to Price may lead to thing Price is an Object and not a Number
+// Here, renaming Number to Price may lead to think Price is an Object and not a Number
 
 // priceToString :: Price -> Price as String
 const priceToString = price => price + '$'
