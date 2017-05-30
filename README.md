@@ -183,27 +183,34 @@ const foo (a = 0) =>  bar(a)
 You should avoid function declaration and use function expression.
 ``` javascript
 // bad
-function do() { ... }
+function foo() { ... }
 
 // good
-const do = () => ...
+const foo = () => ...
 
 // generators
 // bad
-function* do() { ... }
+function* foo() { ... }
 
 // good
-const do = function* () { ... }
+const foo = function* () { ... }
+
+// async functions
+// bad
+async function foo () { ... }
+
+// good
+const foo = async () { ... }
 ```
 
 ## 3.5 Function Keyword
 You should favor arrow functions over the function keyword.
 ``` javascript
 // bad
-const do = function() { ... }
+const foo = function() { ... }
 
 // good
-const do = () => ...
+const foo = () => ...
 ```
 
 ## 3.6 Arrow Functions : is the default, noop, identity, always
@@ -476,10 +483,10 @@ Prefer the usage of ternary expression where you are explicit of the else condit
 ## 4.6 Use Ternary Expression to Determine data/functions Rather Than Execution
 ``` javascript
 // bad
-const foo = data => make => make2 => contition => contition ? make(data) : make2(data)
+const foo = data => make => make2 => condition => condition ? make(data) : make2(data)
 
 // good
-const foo = make => make2 => contition => contition ? make : make2
+const foo = make => make2 => condition => condition ? make : make2
 foo(make)(make2)(contdition)(data)
 ```
 
@@ -565,6 +572,7 @@ const state => {
 // good
 const state => Object.assign({}, state, { id : 1 }) // native js
 
+// best
 const state => ({ ...state, id : 1 }) // es6 syntax
 ```
 
