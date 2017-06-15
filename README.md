@@ -476,11 +476,11 @@ Prefer the usage of ternary expression where you are explicit of the else condit
 ## 4.6 Use Ternary Expression to Determine data/functions Rather Than Execution
 ``` javascript
 // bad
-const foo = data => make => make2 => contition => contition ? make(data) : make2(data)
+const foo = data => make => make2 => condition => condition ? make(data) : make2(data)
 
 // good
-const foo = make => make2 => contition => contition ? make : make2
-foo(make)(make2)(contdition)(data)
+const foo = make => make2 => condition => condition ? make : make2
+foo(make)(make2)(condition)(data)
 ```
 
 # 5.0 Composable Functions
