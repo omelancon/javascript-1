@@ -487,7 +487,7 @@ const foo = data => make => make2 => condition => condition ? make(data) : make2
 
 // good
 const foo = make => make2 => condition => condition ? make : make2
-foo(make)(make2)(contdition)(data)
+foo(make)(make2)(condition)(data)
 ```
 
 # 5.0 Composable Functions
