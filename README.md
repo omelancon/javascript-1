@@ -572,7 +572,6 @@ const state => {
 // good
 const state => Object.assign({}, state, { id : 1 }) // native js
 
-// good
 const state => ({ ...state, id : 1 }) // es6 syntax
 ```
 
