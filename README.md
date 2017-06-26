@@ -183,27 +183,34 @@ const foo (a = 0) =>  bar(a)
 You should avoid function declaration and use function expression.
 ``` javascript
 // bad
-function do() { ... }
+function foo() { ... }
 
 // good
-const do = () => ...
+const foo = () => ...
 
 // generators
 // bad
-function* do() { ... }
+function* foo() { ... }
 
 // good
-const do = function* () { ... }
+const foo = function* () { ... }
+
+// async functions
+// bad
+async function foo () { ... }
+
+// good
+const foo = async () => { ... }
 ```
 
 ## 3.5 Function Keyword
 You should favor arrow functions over the function keyword.
 ``` javascript
 // bad
-const do = function() { ... }
+const foo = function() { ... }
 
 // good
-const do = () => ...
+const foo = () => ...
 ```
 
 ## 3.6 Arrow Functions : is the default, noop, identity, always
