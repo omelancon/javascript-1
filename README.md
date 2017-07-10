@@ -384,14 +384,14 @@ Either.fromNullable(null) // this will return a Left(null)
 //=> 'Oops'
 
 const extractEmail = obj => obj.email ? Right(obj.email) : Left()
-extractEmail({ email: 'test@example.com' }
+extractEmail({ email: 'test@example.com' })
   .map(extractDomain)
   .fold(
     () => 'No email found!',
     x => x)
 //=> 'example.com'
 
-extractEmail({ name: 'user' }
+extractEmail({ name: 'user' })
   .map(extractDomain) // this will not get executed
   .fold(
     () => 'No email found!',
