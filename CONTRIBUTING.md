@@ -3,5 +3,5 @@ To make a change to this guide you must create a pull request with your changes.
 
 # Aldo Javascript Functional Programming Guide Maintainers
 - Simon Deshaies (@pre63)
-- Jean-Francois Dube (@jfdube)
+- Jean-Francois Dube (@jfdoube, [Twitter](https://twitter.com/jfdoube), [LinkedIn](https://www.linkedin.com/in/jeanfrancoisd/))
 - Ysael Pepin (@ysael)
