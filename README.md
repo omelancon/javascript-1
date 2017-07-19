@@ -329,6 +329,10 @@ const trim = str => str.trim(/[ ]+$/)
 
 # 4.0 Control Flow
 
+> > Category theory gives you a framework for thinking about functions, composition, types, & abstraction. We should rename it to program theory
+
+-- [Brian Lonsdorf](https://twitter.com/drboolean/status/886975835084804097)
+
 ## 4.1 Monads
 You should use monads for control flow.
 ``` javascript
