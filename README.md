@@ -329,7 +329,7 @@ const trim = str => str.trim(/[ ]+$/)
 
 # 4.0 Control Flow
 
-> > Category theory gives you a framework for thinking about functions, composition, types, & abstraction. We should rename it to program theory
+> Category theory gives you a framework for thinking about functions, composition, types, & abstraction. We should rename it to program theory
 
 -- [Brian Lonsdorf](https://twitter.com/drboolean/status/886975835084804097)
 
@@ -388,14 +388,14 @@ Either.fromNullable(null) // this will return a Left(null)
 //=> 'Oops'
 
 const extractEmail = obj => obj.email ? Right(obj.email) : Left()
-extractEmail({ email: 'test@example.com' }
+extractEmail({ email: 'test@example.com' })
   .map(extractDomain)
   .fold(
     () => 'No email found!',
     x => x)
 //=> 'example.com'
 
-extractEmail({ name: 'user' }
+extractEmail({ name: 'user' })
   .map(extractDomain) // this will not get executed
   .fold(
     () => 'No email found!',
@@ -657,7 +657,82 @@ const curry = f => x => y => f(x, y)
 
 // uncurry :: (Any -> Any -> Any) -> (Any, Any) -> Any
 const uncurry => f => (x, y) =>  f(x)(y)
+
+// returnOne :: () -> Number
+const returnOne = () => 1
 ```
+
+### Notation for Arrays
+
+As seen above, we can use `Array` in function signatures, although this does not indicate the expected type from the elements contained in the array. Thus we consider `Array` to indicate an array with elements of `Any` type.
+
+When a function expects an `Array` with elements of given a type we use the bracket notation.
+
+```
+// sum :: [Number] -> Number
+const sum = numberArray => numberArray.reduce((x, y) => x + y, 0)
+
+// notation for an array of Numbers: [Number]
+// notation for an array of Strings: [String]
+// notation for a two-dimensional array of numbers: [[Number]]
+// notation for an array of any type: [Any] or Array
+```
+
+### Notation for Objects
+
+Notice that the type `Object` is sometimes not meaningful enough since we might require that an object has some specific attribute.
+
+```
+// for a merge function it is accurate to us Object as type
+
+// merge :: Object -> Object -> Object
+const merge = x => y => Object.assign({}, x, y)
+
+// for a function that needs to access a specific attribute of the object, type Object becomes inadequat
+
+// selectPersonName :: Object -> String
+const selectPersonName = obj => obj.name
+```
+
+To be more explicit, we replace `Object` by a name that accurately represents what the object structure is expected to be.
+
+```
+// bad
+// update :: Object -> Object
+ const selectAccountSummary = a => ({
+    income: a.income,
+    expense: a.expense,
+    balance: a.income - a.expense
+ })
+
+// good
+// update :: Account -> AccountSummary
+ const selectAccountSummary = a => ({
+    income: a.income,
+    expense: a.expense,
+    balance: a.income - a.expense
+ })
+```
+
+If renaming `Object` is not clear enough in the context, it is possible to add a comment defining the expected structure of the object.
+
+#### Caveat
+
+The purpose of renaming the `Object` type is to give information about its structure and the attributes it contains. It should not be done to define what the object represents. Thus, renaming should not be used for types other than `Object`, because their structure is already well-defined. Furthermore renaming non-object types can create confusion.
+
+```
+// bad
+
+// Here, renaming Number to Price may lead to think Price is an Object and not a Number
+
+// priceToString :: Price -> Price as String
+const priceToString = price => price + '$'
+
+// good
+// priceToString :: Number -> String
+const priceToString = price => price + '$'
+```
+
 
 ## 9.1 Parentheses in Hindely-Milner
 Parentheses in Hindley-Milner notation can play three roles, of which only two are mandatory.
@@ -750,7 +825,7 @@ const filterArraysThenConcat = myFilter => firstArray => {
 const myFavouriteNumbers = [1, 2, 3, ..., 999999, 1000000]
 const evenFilter = n => n % 2 === 0
 
-// extendMyArrayOfEvenNumbers :: Array -> Array
+// extendMyArrayOfEvenNumbers :: [Number] -> [Number]
 const extendMyArrayOfEvenNumbers = filterArraysThenConcat(evenFilter)(myFavouriteNumbers)
 
 // This call is way more efficient since the first filter has already been applied
