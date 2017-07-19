@@ -116,11 +116,13 @@ _ src
 |   └── apple.component.js
 |   └── apple.container.js
 |   └── apple.saga.js
+|   └── apple.gtm.js
 ├── microsoft
 |   └── microsoft.action.js
 |   └── microsoft.component.js
 |   └── microsoft.container.js
 |   └── microsoft.saga.js
+|   └── microsoft.gtm.js
 └── index.html
 ```
 
