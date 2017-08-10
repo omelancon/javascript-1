@@ -34,7 +34,7 @@
 - [5.0 Composable Functions](#50-composable-functions)
   * [5.1 Impure Dependencies Must be Composed - Pure Functions](#51-impure-dependencies-must-be-composed---pure-functions)
 - [6.0 Declarative Programming](#60-declarative-programming)
-  * [6.1 Program Devlarative Functions](#61-program-devlarative-functions)
+  * [6.1 Program Declarative Functions](#61-program-declarative-functions)
   * [6.2 Split Code Into Composable Functions](#62-split-code-into-composable-functions)
 - [7.0 State & Function Purity](#70-state--function-purity)
   * [7.1 Assignments & State Modification](#71-assignments--state-modification)
@@ -513,7 +513,7 @@ const readFileBody = compose(getBody, JSON.parse, readFileSync)
 ```
 
 # 6.0 Declarative Programming
-## 6.1 Program Devlarative Functions
+## 6.1 Program Declarative Functions
 Because you should tell a story by declaring what to do and not how you should avoid imperative functions that tend to tell the computer how to do the thing rather than declare what to do.
 ``` javascript
 // bad
