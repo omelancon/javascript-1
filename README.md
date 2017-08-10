@@ -47,7 +47,7 @@
   * [8.1 For, While, Foreach](#81-for-while-foreach)
   * [8.2 Recursion & Tail Call](#82-recursion--tail-call)
 - [9.0 Function Type Signature Documentation (Hindley-Milner)](#90-function-type-signature-documentation-hindley-milner)
-  * [9.1 Parentheses in Hindely-Milner](#91-parentheses-in-hindely-milner)
+  * [9.1 Parentheses in Hindley-Milner](#91-parentheses-in-hindley-milner)
 - [10.0 Partial Evaluation](#100-partial-evaluation)
   * [10.1 A Word On Partial Application](#101-a-word-on-partial-application)
   * [10.1 More Than Just Application](#101-more-than-just-application)
@@ -736,7 +736,7 @@ const priceToString = price => price + '$'
 ```
 
 
-## 9.1 Parentheses in Hindely-Milner
+## 9.1 Parentheses in Hindley-Milner
 Parentheses in Hindley-Milner notation can play three roles, of which only two are mandatory.
 
 First of all, parentheses will denote tuples of arguments for uncurried functions. Arguments as tuples indicate that the function cannot be partially applied. In functional Javascript, you generally want to avoid uncurried functions.
