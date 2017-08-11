@@ -1,4 +1,4 @@
-# ALDO Javascript Functional Programming Guide
+# ALDO Functional Javascript Style Guide
 - [Motivation](#motivation)
 - [Values](#values)
 - [1.0 Architecture](#10-architecture)
@@ -58,7 +58,7 @@
   * [11.1 Configurations](#111-configurations)
 
 # Motivation
-The javascript functional programming guide was created to scope what can be done with javascript to promote a functional codebase. At ALDO, we believe that high-level programming language like javascript benefits more from the maintainability of the functional style than an imperative performance focused style.
+The functional javascript style guide was created to scope what can be done with javascript to promote a functional codebase. At ALDO, we believe that high-level programming language like javascript benefits more from the maintainability of the functional style than an imperative performance focused style.
 
 This guide aims not to restrict the style of individual contributors but set the common ground for solving problems as a team with the javascript language.
 

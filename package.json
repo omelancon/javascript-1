@@ -1,0 +1,21 @@
+{
+  "name": "aldo-fp-style",
+  "version": "0.0.1",
+  "description": "All the details about writing functional javascript at ALDO.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aldo-dev/javascript.git"
+  },
+  "keywords": [
+    "style guide",
+    "lint",
+    "aldo",
+    "es6",
+    "javascript",
+    "coding-standards",
+    "hindley-milner"
+  ],
+  "author": "Simon Deshaies (@pre63)",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/aldo-dev/javascript"
+}
