@@ -639,7 +639,7 @@ You should document all functions with Hindley-Milner annotation, it is the prev
 // add :: Number -> Number -> Number
 const add = x => y => x + y
 
-// concat :: [Any] -> [Any] -> [Any]
+// concat :: [a] -> [a] -> [a]
 const concat = a => b => a.concat(b)
 
 // filter :: (a -> Boolean) -> [a] -> [a]
@@ -675,8 +675,29 @@ const sum = numberArray => numberArray.reduce((x, y) => x + y, 0)
 // notation for an array of Numbers: [Number]
 // notation for an array of Strings: [String]
 // notation for a two-dimensional array of numbers: [[Number]]
-// notation for an array of any type: [Any]
 ```
+
+### Polymorphic type
+
+A polymorphic function is a function which has at least one argument that can be of any type. To indicate a polymorphic type, we denote it by a variable.
+
+```
+// The identity function is polymorphic, but its return type matches its argument type
+
+// id :: a  -> a
+const id = x => x
+
+// The second argument of repeat is of any type, but it will return an array of the same type
+
+// repeat :: Number -> a -> [a]
+const repeat = n => a => n < 1 ? [] : [a].concat(repeat(n - 1)(a)) 
+
+// The function flip has polymorphic types, but the notation allows us to read which types should match
+
+// flip :: (a -> b -> c) -> b -> a -> c
+const flip = f => b => a => f(a)(b)
+```
+
 
 ### Notation for Objects
 
