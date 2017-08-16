@@ -639,25 +639,25 @@ You should document all functions with Hindley-Milner annotation, it is the prev
 // add :: Number -> Number -> Number
 const add = x => y => x + y
 
-// concat :: Array -> Array -> Array
+// concat :: [Any] -> [Any] -> [Any]
 const concat = a => b => a.concat(b)
 
-// filter :: (Any -> Boolean) -> Array -> Array
+// filter :: (a -> Boolean) -> [a] -> [a]
 const filter = f => a => a.filter(f)
 
-// map :: (Any -> Any) -> Array -> Array
+// map :: (a -> b) -> [a] -> [b]
 const map = f => a => a.map(f)
 
-// replace :: Array -> String -> String
-const replace = ([subStr, newSubstr]) => s => s.replace(subStr, newSubstr)
+// replace :: String -> String -> String -> String
+const replace = subStr => newSubstr => s => s.replace(subStr, newSubstr)
 
 // uncurriedMaxOfThree :: (Number, Number, Number) -> Number
 uncurriedMaxOfThree (x, y, z) = Math.max(x, y, z)
 
-// curry :: ((Any, Any) -> Any) -> Any -> Any -> Any
+// curry :: ((a, b) -> c) -> a -> b -> c
 const curry = f => x => y => f(x, y)
 
-// uncurry :: (Any -> Any -> Any) -> (Any, Any) -> Any
+// uncurry :: (a -> b -> c) -> (a, b) -> c
 const uncurry => f => (x, y) =>  f(x)(y)
 
 // returnOne :: () -> Number
@@ -666,9 +666,7 @@ const returnOne = () => 1
 
 ### Notation for Arrays
 
-As seen above, we can use `Array` in function signatures, although this does not indicate the expected type from the elements contained in the array. Thus we consider `Array` to indicate an array with elements of `Any` type.
-
-When a function expects an `Array` with elements of given a type we use the bracket notation.
+As seen above, we do not use `Array` in function signatures, even though this is a proper type in Javascript. Instead we use the square bracket notation `[type]` to indicate, not only that we expect and array, but to indicate the type of the elements it contains.
 
 ```
 // sum :: [Number] -> Number
@@ -677,7 +675,7 @@ const sum = numberArray => numberArray.reduce((x, y) => x + y, 0)
 // notation for an array of Numbers: [Number]
 // notation for an array of Strings: [String]
 // notation for a two-dimensional array of numbers: [[Number]]
-// notation for an array of any type: [Any] or Array
+// notation for an array of any type: [Any]
 ```
 
 ### Notation for Objects
@@ -752,10 +750,10 @@ uncurriedAdd(1)
 A common use of parentheses is also to enclose functions, i.e. to state that the argument you expect is a function with the given enclosed signature.
 
 ```
-// The first argument is expected to be of type (Any -> Any)
+// The first argument is expected to be of type (a -> b)
 // so it would be incorrect to omit the parentheses.
 
-// apply :: (Any -> Any) -> Any -> Any
+// apply :: (a -> b) -> a -> b
 const apply = f => x => f(x)
 ```
 
@@ -765,11 +763,11 @@ Finally, while this final case is optional, parentheses can be used to encourage
 // Both signatures are correct, but the second one indicates to the user
 // that curry should be partially applied to return a function to be reused later
 
-// curry :: ((Any, Any) -> Any) -> Any -> Any -> Any
-// curry :: ((Any, Any) -> Any) -> (Any -> Any -> Any)
+// curry :: ((a, b) -> c) -> a -> b -> c
+// curry :: ((a, b) -> c) -> (a -> b -> c)
 const curry = f => x => y => f(x, y)
 
-// The end parentheses are optional since Any -> Any -> Any is equivalent to (Any -> Any -> Any)
+// The end parentheses are optional since a -> b -> c is equivalent to (a -> b -> c)
 ```
 
 # 10.0 Partial Evaluation
@@ -818,7 +816,7 @@ const betterMultiplyFour = betterAddThenMultiply(2)(2)
 The purpose of the previous example is to introduce the concept of partial evaluation. Although, this example is hardly faster in practice since saving a single arithmetic operation is negligible. Let's consider a more meaningful example where partial evaluation gives a significant advantage.
 
 ```
-// filterArraysThenConcat :: (Any -> Boolean) -> Array -> Array -> Array
+// filterArraysThenConcat :: (a -> Boolean) -> [a] -> [a] -> [a]
 const filterArraysThenConcat = myFilter => firstArray => {
   const filteredFirstArray = firstArray.filter(myFilter)
   return secondArray => filteredFirstArray.concat(secondArray.filter(myFilter))
