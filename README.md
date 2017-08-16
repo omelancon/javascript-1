@@ -677,7 +677,7 @@ const sum = numberArray => numberArray.reduce((x, y) => x + y, 0)
 // notation for a two-dimensional array of numbers: [[Number]]
 ```
 
-### Polymorphic type
+### Polymorphic Types
 
 A polymorphic function is a function which has at least one argument that can be of any type. To indicate a polymorphic type, we denote it by a variable.
 
