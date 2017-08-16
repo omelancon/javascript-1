@@ -666,7 +666,7 @@ const returnOne = () => 1
 
 ### Notation for Arrays
 
-As seen above, we do not use `Array` in function signatures, even though this is a proper type in Javascript. Instead we use the square bracket notation `[type]` to indicate, not only that we expect and array, but to indicate the type of the elements it contains.
+As seen above, we do not use `Array` in function signatures, even though this is a proper type in Javascript. Instead we use the square bracket notation `[type]` to indicate, not only that we expect an array, but to indicate the type of the elements it contains.
 
 ```
 // sum :: [Number] -> Number
