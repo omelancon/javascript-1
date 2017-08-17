@@ -684,7 +684,7 @@ A polymorphic function is a function which has at least one argument that can be
 ```
 // The identity function is polymorphic, but its return type matches its argument type
 
-// id :: a  -> a
+// id :: a -> a
 const id = x => x
 
 // The second argument of repeat is of any type, but it will return an array of the same type
